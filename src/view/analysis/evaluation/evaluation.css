@@ -1,0 +1,12 @@
+.bitBoardDisplayHBox-bitBoardLabel {
+    -fx-border-color: lightgray;
+}
+.bitBoardDisplaySidesHBox-sideBitBoardLabel {
+    -fx-border-color: lightgray;
+}
+.fileSetDisplayHBox-fileSetLabel {
+    -fx-border-color: lightgray;
+}
+.fileSetDisplaySidesHBox-fileSetBoardLabel {
+    -fx-border-color: lightgray;
+}

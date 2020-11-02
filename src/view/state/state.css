@@ -1,0 +1,9 @@
+.stateLabel {
+	-fx-pref-width: 250;
+	-fx-pref-height: 100;
+	-fx-alignment: center;
+	-fx-background-color: lightgreen;
+	-fx-font-size: 25.0;
+    -fx-border-width: 2;
+    -fx-border-color: linear-gradient(to bottom, green, white);
+}

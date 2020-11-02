@@ -1,0 +1,13 @@
+.rootPane {
+	-fx-padding: 15;
+	-fx-background-color: white;
+    -fx-border-width: 1;
+    -fx-border-color: linear-gradient(to bottom, green, white);
+}
+.progressBar {
+	-fx-padding: 5;
+	-fx-fit-to-width: true;
+}
+.label {
+	-fx-font: 15px Calibri;
+}
