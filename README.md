@@ -3,7 +3,7 @@ A simple classical chess engine
 
 
 Each of these aspects is configurable.
-'''java
+```java
     public boolean alphaBetaPruning;
     public boolean delayedLegalityCheck;
     public boolean delayedMateCheck;  // utile per perft test
@@ -20,7 +20,7 @@ Each of these aspects is configurable.
     public boolean killerHeuristic;
     public boolean historyHeuristic;
     public boolean transpositionsMap;
-'''
+```
 
 
 
