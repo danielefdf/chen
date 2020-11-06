@@ -217,14 +217,13 @@ public class UciEngine {
          */
         new Thread(() -> {
             try {
-                engine.nextMove(game, node);
+                engine.searchBestMove(game, node);
 
-                Integer integerMove = engine.pvMap.get(node.nodeHashCode);
+                Move move = engine.pvMap.get(node.nodeHashCode);
 
-                if (integerMove == null) {
+                if (move == null) {
                     System.out.println("bestmove " + Pan.NULL_MOVE);
                 } else {
-                    Move move = new Move(integerMove);
                     System.out.println("bestmove " + move.toPan(game.startNode.playerColor));
                 }
             } catch (Exception e) {

@@ -11,7 +11,6 @@ import model.elements.Zobrist;
 import model.figures.Alpha2;
 import model.notations.Fen;
 import model.figures.Utf8;
-import application.app.DebugUtils;
 
 /**
  * Contiene informazioni su una posizione e sulla sua collocazione nel gioco.
@@ -221,11 +220,9 @@ public final class Node {
         StringBuilder countersString;
 
         StringBuilder levelIndentStringBuilder = new StringBuilder();
-        if (DebugUtils.searchStepByStepDebug) {
-            for (int i = 1; i <= treeLevel; ++i) {
-                levelIndentStringBuilder.append("        ");
-            }
-        }
+//        for (int i = 1; i <= treeLevel; ++i) {
+//            levelIndentStringBuilder.append("        ");
+//        }
         if (gameState == States.NOT_LEGAL) {
             levelIndentStringBuilder.append("///");
         }

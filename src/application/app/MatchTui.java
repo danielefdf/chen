@@ -196,16 +196,7 @@ public class MatchTui {
     private void checkThreeFoldReps() {
 
         if (focusNode.gameState == States.THREEFOLD_REP) {
-            if (focusNode.isThreefoldRepetition(Engine.GAME_REPS_TO_THREEFOLD)) {
-                if (DebugUtils.searchStepByStepDebug
-                        || DebugUtils.searchNextMoveDebug) {
-                    System.out.println("isThreefoldRepetition!");
-                }
-            } else {
-                if (DebugUtils.searchStepByStepDebug
-                        || DebugUtils.searchNextMoveDebug) {
-                    System.out.println("is NOT ThreefoldRepetition!");
-                }
+            if (!focusNode.isThreefoldRepetition(Engine.GAME_REPS_TO_THREEFOLD)) {
                 focusNode.gameState = States.ONGOING;
             }
         }
@@ -215,11 +206,6 @@ public class MatchTui {
     private void endGame()
             throws Exception {
 
-        if (DebugUtils.searchStepByStepDebug
-                || DebugUtils.searchNextMoveDebug) {
-            System.out.println("focusNode.gameState=" + States.toString(focusNode.gameState));
-        }
-
         ongoingGame = false;
 
         stopClockTimeline();
@@ -227,10 +213,6 @@ public class MatchTui {
 
         game.gameEndMillis = System.currentTimeMillis();
         game.gameLengthMillis = game.gameEndMillis - game.gameStartMillis;
-
-        if (DebugUtils.endOfGameDebug) {
-            System.out.println(game);
-        }
 
         if (matchTuiListener != null) {
             matchTuiListener.onGameEnded();
@@ -289,7 +271,7 @@ public class MatchTui {
 
                 System.out.println("player=" + player);
 
-                player.engine.nextMove(game, focusNode);
+                player.engine.searchBestMove(game, focusNode);
 
                 return null;
             }
@@ -301,8 +283,7 @@ public class MatchTui {
 
                     stopCurrentMoveThread();
 
-                    Integer intMove = player.engine.pvMap.get(focusNode.nodeHashCode);
-                    focusMove = new Move(intMove);
+                    focusMove = player.engine.pvMap.get(focusNode.nodeHashCode);
 
                     playMove();
 

@@ -36,7 +36,6 @@ import model.elements.States;
 import model.game.Game;
 import model.game.GameType;
 import model.game.Player;
-import application.app.DebugUtils;
 import view.analysis.evaluation.EvaluationBorderPaneListener;
 import view.analysis.moves.MovesTableViewListener;
 import view.analysis.search.PvTableViewListener;
@@ -1223,16 +1222,7 @@ public class GameStage extends Stage {
             throws Exception {
 
         if (focusNode.gameState == States.THREEFOLD_REP) {
-            if (focusNode.isThreefoldRepetition(Engine.GAME_REPS_TO_THREEFOLD)) {
-                if (DebugUtils.searchStepByStepDebug
-                        || DebugUtils.searchNextMoveDebug) {
-                    System.out.println("isThreefoldRepetition!");
-                }
-            } else {
-                if (DebugUtils.searchStepByStepDebug
-                        || DebugUtils.searchNextMoveDebug) {
-                    System.out.println("is NOT ThreefoldRepetition!");
-                }
+            if (!focusNode.isThreefoldRepetition(Engine.GAME_REPS_TO_THREEFOLD)) {
                 focusNode.gameState = States.ONGOING;
             }
         }
@@ -1242,19 +1232,10 @@ public class GameStage extends Stage {
     private void endGame()
             throws Exception {
 
-        if (DebugUtils.searchStepByStepDebug
-                || DebugUtils.searchNextMoveDebug) {
-            System.out.println("focusNode.gameState=" + States.toString(focusNode.gameState));
-        }
-
         ongoingGame = false;
 
         stopTimelines();
         stopCurrentMoveThread();
-
-        if (DebugUtils.endOfGameDebug) {
-            System.out.println(game);
-        }
 
         if (gameStageListener != null) {
             gameStageListener.onGameEnded();
@@ -1358,8 +1339,7 @@ public class GameStage extends Stage {
 
         stopCurrentMoveThread();
 
-        Integer intMove = player.engine.pvMap.get(focusNode.nodeHashCode);
-        Move nextMove = new Move(intMove);
+        Move nextMove = player.engine.pvMap.get(focusNode.nodeHashCode);
 
         playMove(nextMove);
 
@@ -1542,7 +1522,7 @@ public class GameStage extends Stage {
 
                 System.out.println("player=" + player);
 
-                player.engine.nextMove(game, fromNode);
+                player.engine.searchBestMove(game, fromNode);
 
                 return null;
             }
@@ -1566,7 +1546,7 @@ public class GameStage extends Stage {
 
                 System.out.println("player=" + player);
 
-                player.engine.nextMove(game, focusNode);
+                player.engine.searchBestMove(game, focusNode);
 
                 return null;
             }

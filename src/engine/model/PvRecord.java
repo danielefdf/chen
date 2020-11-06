@@ -3,7 +3,6 @@ package engine.model;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
-import application.app.DebugUtils;
 
 public final class PvRecord implements Serializable {
 
@@ -13,6 +12,7 @@ public final class PvRecord implements Serializable {
     private final Integer value;
     private final Long timeLength;
     private final int visitedNodes;
+    private final int pvMapSize;
     private final int tMapSize;
     private final LinkedList<Move> pvMovesList;
 
@@ -57,7 +57,8 @@ public final class PvRecord implements Serializable {
     public Move getPvMove19() { return pvMove19; }
 
     public PvRecord(final Integer newDepth, final Long newTimeLength, final Integer newValue,
-            final int newNodesCounter, final LinkedList<Move> newPvMovesList, final int newTMapSize) {
+            final int newNodesCounter, final LinkedList<Move> newPvMovesList,
+                    final int newPvMapSize, final int newTMapSize) {
 
         depth = newDepth;
         value = newValue;
@@ -90,9 +91,8 @@ public final class PvRecord implements Serializable {
         }
 
         timeLength = newTimeLength;
-
         visitedNodes = newNodesCounter;
-
+        pvMapSize = newPvMapSize;
         tMapSize = newTMapSize;
 
     }
@@ -122,15 +122,11 @@ public final class PvRecord implements Serializable {
         statsSb.append(" pv= ")
                 .append(pvMovesList);
 
-        if (DebugUtils.nodesCounterDebug) {
-            statsSb.append(" visitedNodesCounter=")
-                    .append(visitedNodes);
-        }
+        statsSb.append(" pvMapSize=")
+                .append(pvMapSize);
 
-        if (tMapSize > 0) {
-            statsSb.append(" tMapSize.size()=")
-                    .append(tMapSize);
-        }
+        statsSb.append(" tMapSize")
+                .append(tMapSize);
 
         return statsSb.toString();
     }

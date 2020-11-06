@@ -1,6 +1,5 @@
 package application.app.test;
 
-import application.app.DebugUtils;
 import application.app.MainUtils;
 import application.app.MatchTui;
 import engine.model.Engine;
@@ -105,14 +104,6 @@ public class MainMatchTui extends Application {
 
     private static void setMatch()
             throws Exception {
-
-        DebugUtils.searchNextMoveDebug     = true;
-//        DebugUtils.searchStepByStepDebug   = true;
-//        DebugUtils.selectionSortDebug      = true;
-//        DebugUtils.timeManagingDebug       = true;
-//        DebugUtils.endOfGameDebug          = true;
-//        DebugUtils.pvMapManagingDebug      = true;
-//        DebugUtils.nodeIndentString        = true;
 
         String fenString;
         fenString = FenStrings.STD;

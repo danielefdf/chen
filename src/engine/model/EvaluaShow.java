@@ -5,8 +5,6 @@ import model.elements.Colors;
 import model.elements.Pieces;
 import model.elements.Squares;
 import model.elements.States;
-import model.notations.Fen;
-import application.app.DebugUtils;
 
 public abstract class EvaluaShow {
 
@@ -122,19 +120,6 @@ public abstract class EvaluaShow {
             case States.CHECK:
                 evaluatePosition(node);
                 nodeValue = taperedScore;
-                if (DebugUtils.evaluaShowFlipPosDebug) {
-                    // qui perché in evaluatePosition node viene sovrascritto da flipNode
-//                    System.out.println("node=" + node.toStringDebug());
-                    Node flipNode = new Node(Fen.flipColor(node.toFen()));
-                    evaluatePosition(flipNode);
-                    int flipValue = taperedScore;
-                    if (nodeValue != flipValue) {
-                        System.out.println("flipValue != nodeValue");
-                        System.out.println(flipNode.toStringDebug());
-                        System.out.println("nodeValue=" + nodeValue);
-                        System.out.println("flipValue=" + flipValue);
-                    }
-                }
                 break;
             case States.CHECKMATE:
                 // chi ha la mossa subisce il matto

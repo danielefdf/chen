@@ -1,6 +1,5 @@
 package application.app.test;
 
-import application.app.DebugUtils;
 import engine.model.Engine;
 import engine.model.Node;
 import javafx.application.Application;
@@ -36,13 +35,13 @@ public class MainMatchGui extends Application {
         Zobrist.setZobristConstants();
 
         // lancia GUI da zero
-        if (false) launch(args);
+        if (true) launch(args);
 
         // lancia GUI con match preimpostato
         Platform.runLater(() -> {
             try {
 
-                if (true) runAnalysis();
+                if (false) runAnalysis();
                 if (false) runMatchGui();
 
             } catch (Exception e) {
@@ -68,14 +67,6 @@ public class MainMatchGui extends Application {
 
     private static void setAnalysis()
             throws Exception {
-
-        DebugUtils.searchNextMoveDebug     = true;
-//        DebugUtils.searchStepByStepDebug   = true;
-//        DebugUtils.selectionSortDebug      = true;
-//        DebugUtils.timeManagingDebug       = true;
-//        DebugUtils.endOfGameDebug          = true;
-//        DebugUtils.pvMapManagingDebug      = true;
-//        DebugUtils.nodeIndentString        = true;
 
         String fenString;
         fenString = FenStrings.GRA_7;
@@ -131,14 +122,6 @@ public class MainMatchGui extends Application {
 
     private static void setMatch()
             throws Exception {
-
-        DebugUtils.searchNextMoveDebug     = true;
-//        DebugUtils.searchStepByStepDebug   = true;
-//        DebugUtils.selectionSortDebug      = true;
-//        DebugUtils.timeManagingDebug       = true;
-//        DebugUtils.endOfGameDebug          = true;
-//        DebugUtils.pvMapManagingDebug      = true;
-//        DebugUtils.nodeIndentString        = true;
 
         String fenString;
         fenString = FenStrings.STD;

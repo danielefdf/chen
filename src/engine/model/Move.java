@@ -2,7 +2,6 @@ package engine.model;
 
 import java.io.Serializable;
 
-import application.app.DebugUtils;
 import model.elements.Colors;
 import model.elements.Functions;
 import model.elements.IntMoves;
@@ -210,15 +209,13 @@ public final class Move implements Comparable<Move>, Serializable {
 
         while (sb.length() <= MOVE_STRING_LENGTH) { sb.append(" "); }
 
-        if (DebugUtils.movesListScoreDebug) {
-            if (orderValue == null) {
-                sb.append("[ null ]");
-            } else {
-                sb.append("[ ")
-                        .append(orderValue)
-                        .append(" ]");
-            }
-        }
+//        if (orderValue == null) {
+//            sb.append("[ null ]");
+//        } else {
+//            sb.append("[ ")
+//                    .append(orderValue)
+//                    .append(" ]");
+//        }
 
         return sb.toString();
     }
@@ -333,44 +330,6 @@ public final class Move implements Comparable<Move>, Serializable {
         }
 
         return sb.toString();
-    }
-
-    public int toIntMove() {
-
-        int intMove = 0x0;
-
-        intMove |= function;                              // << LongMoves.FUNCTION_IX;
-        if (fromSquare != null) {
-            intMove |= fromSquare                            << IntMoves.FROM_SQUARE_IX;
-            intMove |= 0x1                                   << IntMoves.FROM_SQUARE_EXISTS_IX;
-        }
-        if (toSquare != null) {
-            intMove |= toSquare                              << IntMoves.TO_SQUARE_IX;
-            intMove |= 0x1                                   << IntMoves.TO_SQUARE_EXISTS_IX;
-        }
-        if (piece != null) {
-            intMove |= Math.abs(piece)                       << IntMoves.PIECE_ROLE_IX;
-            if (piece < 0) {
-                intMove |= 0x1                               << IntMoves.PIECE_NEGA_IX;
-            }
-            intMove |= 0x1                                   << IntMoves.PIECE_EXISTS_IX;
-        }
-        if (targetPiece != null) {
-            intMove |= Math.abs(targetPiece)                 << IntMoves.TARGET_PIECE_ROLE_IX;
-            if (targetPiece < 0) {
-                intMove |= 0x1                               << IntMoves.TARGET_PIECE_NEGA_IX;
-            }
-            intMove |= 0x1                                   << IntMoves.TARGET_PIECE_EXISTS_IX;
-        }
-        if (promotionPiece != null) {
-            intMove |= Math.abs(promotionPiece)              << IntMoves.PROM_PIECE_ROLE_IX;
-            if (promotionPiece < 0) {
-                intMove |= 0x1                               << IntMoves.PROM_PIECE_NEGA_IX;
-            }
-            intMove |= 0x1                                   << IntMoves.PROM_PIECE_EXISTS_IX;
-        }
-
-        return intMove;
     }
 
     @Override

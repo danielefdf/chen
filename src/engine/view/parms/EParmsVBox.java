@@ -27,6 +27,9 @@ public class EParmsVBox extends VBox {
         private ESpinnerParmHBox qSearchAddedDepthSPHB;
         private ECheckParmHBox   iterDeepeningSearchCPHB;
         private ECheckParmHBox   principalVarSearchCPHB;
+        private ECheckParmHBox   lateMoveReductionCPHB;
+        private ESpinnerParmHBox lateMoveMinMovesSPHB;
+        private ESpinnerParmHBox lateMoveSubtrDepthSPHB;
         private ECheckParmHBox   killerHeuristicCPHB;
         private ECheckParmHBox   historyHeuristicCPHB;
         private ECheckParmHBox   transpositionsMapCPHB;
@@ -207,6 +210,18 @@ public class EParmsVBox extends VBox {
             engine.principalVarSearch = principalVarSearchCPHB.getCheckBox().isSelected();
             checkOnEngineParmChanged();
         });
+        lateMoveReductionCPHB = new ECheckParmHBox("late move reduction", engine.lateMoveReduction, () -> {
+            engine.lateMoveReduction = lateMoveReductionCPHB.getCheckBox().isSelected();
+            checkOnEngineParmChanged();
+        });
+        lateMoveMinMovesSPHB = new ESpinnerParmHBox("late move min moves", engine.lateMoveMinMoves, null, () -> {
+            engine.lateMoveMinMoves = lateMoveMinMovesSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        });
+        lateMoveSubtrDepthSPHB = new ESpinnerParmHBox("late move subtr depth", engine.lateMoveSubtrDepth, null, () -> {
+            engine.lateMoveSubtrDepth = lateMoveSubtrDepthSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        });
         killerHeuristicCPHB = new ECheckParmHBox("killer heuristic", engine.killerHeuristic, () -> {
             engine.killerHeuristic = killerHeuristicCPHB.getCheckBox().isSelected();
             checkOnEngineParmChanged();
@@ -251,6 +266,9 @@ public class EParmsVBox extends VBox {
         qSearchAddedDepthSPHB.resetSpinnerParmHBox(  engine.qSearchAddedDepth,     null);
         iterDeepeningSearchCPHB.resetCheckParmHBox(  engine.iterDeepeningSearch);
         principalVarSearchCPHB.resetCheckParmHBox(   engine.principalVarSearch);
+        lateMoveReductionCPHB.resetCheckParmHBox(    engine.lateMoveReduction);
+        lateMoveMinMovesSPHB.resetSpinnerParmHBox(   engine.lateMoveMinMoves,      null);
+        lateMoveSubtrDepthSPHB.resetSpinnerParmHBox( engine.lateMoveSubtrDepth,    null);
         killerHeuristicCPHB.resetCheckParmHBox(      engine.killerHeuristic);
         historyHeuristicCPHB.resetCheckParmHBox(     engine.historyHeuristic);
         transpositionsMapCPHB.resetCheckParmHBox(    engine.transpositionsMap);

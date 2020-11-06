@@ -2,7 +2,6 @@ package engine.model;
 
 import java.text.DecimalFormat;
 import java.util.LinkedList;
-import application.app.DebugUtils;
 
 public class MoveRecord {
 
@@ -112,11 +111,6 @@ public class MoveRecord {
         statsSb.append(dfv.format(Math.abs(value)).replaceAll("\\G0", " "));
         statsSb.append(" moves= ")
                 .append(movesList);
-
-        if (DebugUtils.nodesCounterDebug) {
-            statsSb.append(" visitedNodesCounter=")
-                    .append(visitedNodes);
-        }
 
         statsSb.append(" tMapSize=")
                 .append(tMapSize);

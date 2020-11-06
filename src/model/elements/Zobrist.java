@@ -1,12 +1,6 @@
 package model.elements;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.security.SecureRandom;
-
-import application.app.DebugUtils;
 
 public abstract class Zobrist {
 
@@ -50,11 +44,7 @@ public abstract class Zobrist {
 
     public static void setZobristConstants() {
 
-        if (DebugUtils.serializedZobristConstants) {
-            setSerializedConstants();
-        } else {
-            setRandomConstants();
-        }
+        setRandomConstants();
 
     }
 
@@ -74,38 +64,6 @@ public abstract class Zobrist {
 
         for (byte column = 0; column < 8; ++column) {
             EN_PASSANT_RANDOMS_LIST[column] = randomLong();
-        }
-
-    }
-
-    private static void setSerializedConstants() {
-
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(DebugUtils.serializedZobristFile))) {
-
-            BOARD_RANDOMS_LIST      = (long[][]) ois.readObject();
-            EN_PASSANT_RANDOMS_LIST = (long[])   ois.readObject();
-            CASTLINGS_RANDOMS_LIST  = (long[])   ois.readObject();
-            BLACK_PLAYER_RANDOM     = (long)     ois.readObject();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void serializeRandoms() {
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(DebugUtils.serializedZobristFile))) {
-
-            oos.writeObject(BOARD_RANDOMS_LIST);
-            oos.writeObject(EN_PASSANT_RANDOMS_LIST);
-            oos.writeObject(CASTLINGS_RANDOMS_LIST);
-            oos.writeObject(BLACK_PLAYER_RANDOM);
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }

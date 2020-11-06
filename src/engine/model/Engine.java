@@ -18,8 +18,6 @@ import model.elements.Pieces;
 import model.elements.Squares;
 import model.elements.States;
 import model.game.Game;
-import model.notations.Fen;
-import application.app.DebugUtils;
 
 /**
  * Contiene le informazioni sul gioco, e le quantità che il motore usa per valutare una posizione.
@@ -108,6 +106,9 @@ public class Engine implements Serializable {
         public boolean qChecksSearch;
     public boolean iterDeepeningSearch;
     public boolean principalVarSearch;
+    public boolean lateMoveReduction;
+        public int lateMoveMinMoves;
+        public int lateMoveSubtrDepth;
     public boolean killerHeuristic;
     public boolean historyHeuristic;
     public boolean transpositionsMap;
@@ -1072,10 +1073,6 @@ public class Engine implements Serializable {
             throw new Exception("movesNode.playerColor=" + movesNode.playerColor);
         }
 
-        if (DebugUtils.movesListDebug) {
-            printMovesList("compute", movesList, movesListMaxIndex);
-        }
-
     }
 
     private void computeWhitePawnsMovesBb(final long whiteTargetsBb)
@@ -1764,14 +1761,7 @@ public class Engine implements Serializable {
          *         case 5: return "CAPTURE"
          */
 
-        if (DebugUtils.moveOrderingDebug) {
-            System.out.println(">MOR move=" + move);
-        }
-
         value = morFunctionCoeff * move.function;
-        if (DebugUtils.moveOrderingDebug) {
-            System.out.println(">MOR *function: value=" + value);
-        }
 
         if (move.targetPiece == null) {
             if (move.fromSquare != null) {
@@ -1780,24 +1770,15 @@ public class Engine implements Serializable {
                  */
                 if (move.promotionPiece != null) {
                     value += morPromRoleCoeff * Math.abs(move.promotionPiece);
-                    if (DebugUtils.moveOrderingDebug) {
-                        System.out.println(">MOR += *promotionPieceRole: value=" + value);
-                    }
                 }
                 /*
                  * steps: killer/history heuristics
                  */
                 if (killerHeuristic) {
                     value += killersRepsList[movesNode.treeLevel][move.fromSquare][move.toSquare];
-                    if (DebugUtils.moveOrderingDebug) {
-                        System.out.println(">MOR += killer: value=" + value);
-                    }
                 }
                 if (historyHeuristic) {
                     value += historyRepsList[sideColor == Colors.WHITE ? 1 : 0][move.fromSquare][move.toSquare];
-                    if (DebugUtils.moveOrderingDebug) {
-                        System.out.println(">MOR += history: value=" + value);
-                    }
                 }
                 /*
                  * steps: from/to square attacked
@@ -1820,22 +1801,13 @@ public class Engine implements Serializable {
              * captures/en-passant: MVV-LVA heuristic
              */
             value += morTargetRoleCoeff  * Math.abs(move.targetPiece);
-            if (DebugUtils.moveOrderingDebug) {
-                System.out.println(">MOR += *targetPieceRole: value=" + value);
-            }
             if (move.promotionPiece == null) {
                 value += -morPieceRoleCoeff * Math.abs(move.piece);
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR += -*pieceRole: value=" + value);
-                }
             } else {
                 /*
                  * captures: promotions
                  */
                 value += -morPromRoleCoeff * Math.abs(move.promotionPiece);
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR += -*promotionPieceRole: value=" + value);
-                }
             }
         }
 
@@ -1847,19 +1819,10 @@ public class Engine implements Serializable {
         int cRingsScore = 0;
 
         if ((BitBoards.CENTRE_RING_2 & squareBb) != BitBoards.EMPTY) {
-            if (DebugUtils.moveOrderingDebug) {
-                System.out.println(">MOR checkOnCRingsScore(2): +=" + morOnCRing2Score);
-            }
             cRingsScore += morOnCRing2Score;
         } else if ((BitBoards.CENTRE_RING_1 & squareBb) != BitBoards.EMPTY) {
-            if (DebugUtils.moveOrderingDebug) {
-                System.out.println(">MOR checkOnCRingsScore(1): +=" + morOnCRing1Score);
-            }
             cRingsScore += morOnCRing1Score;
         } else if ((BitBoards.CENTRE & squareBb) != BitBoards.EMPTY) {
-            if (DebugUtils.moveOrderingDebug) {
-                System.out.println(">MOR checkOnCRingsScore(C): +=" + morOnCentreScore);
-            }
             cRingsScore += morOnCentreScore;
         }
 
@@ -1874,27 +1837,15 @@ public class Engine implements Serializable {
         switch (sideColor) {
         case Colors.WHITE:
             if ((movesNode.blackKRing2Bb & squareBb) != BitBoards.EMPTY) {
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR checkOnKRingsScore(2): +=" + morOnKRing2Score);
-                }
                 kRingsScore += morOnKRing2Score;
             } else if ((movesNode.blackKRing1Bb & squareBb) != BitBoards.EMPTY) {
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR checkOnKRingsScore(1): +=" + morOnKRing1Score);
-                }
                 kRingsScore += morOnKRing1Score;
             }
             break;
         case Colors.BLACK:
             if ((movesNode.whiteKRing2Bb & squareBb) != BitBoards.EMPTY) {
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR checkOnKRingsScore(2): +=" + morOnKRing2Score);
-                }
                 kRingsScore += morOnKRing2Score;
             } else if ((movesNode.whiteKRing1Bb & squareBb) != BitBoards.EMPTY) {
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR checkOnKRingsScore(1): +=" + morOnKRing1Score);
-                }
                 kRingsScore += morOnKRing1Score;
             }
             break;
@@ -1911,17 +1862,11 @@ public class Engine implements Serializable {
         switch (sideColor) {
         case Colors.WHITE:
             if ((movesNode.blackControlledBb & squareBb) != BitBoards.EMPTY) {
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR checkOnControlledScore: +=" + morOnCtrlledSquareScore);
-                }
                 return morOnCtrlledSquareScore;
             }
             break;
         case Colors.BLACK:
             if ((movesNode.whiteControlledBb & squareBb) != BitBoards.EMPTY) {
-                if (DebugUtils.moveOrderingDebug) {
-                    System.out.println(">MOR checkOnControlledScore: +=" + morOnCtrlledSquareScore);
-                }
                 return morOnCtrlledSquareScore;
             }
             break;
@@ -2797,10 +2742,6 @@ public class Engine implements Serializable {
                 prevHalfmovesClock  = node.halfmovesClock;
                 prevGameState       = node.gameState;
 
-                if (DebugUtils.nodeDoUndoDebug) {
-                    anteNode = new Node(node);
-                }
-
                 node.doMove(move);
 
                 if (depth == 1) {
@@ -2813,10 +2754,6 @@ public class Engine implements Serializable {
 
                 node.undoMove(move, prevWhiteShortCg, prevWhiteLongCg, prevBlackShortCg, prevBlackLongCg,
                         prevEnPassantSquare, prevHalfmovesClock, prevGameState);
-
-                if (DebugUtils.nodeDoUndoDebug) {
-                    node.equalsDebug(anteNode);
-                }
 
                 move = selectNextMove(node, checkedMovesCounter, false, movesList, movesListMaxIndex);
             }
@@ -2904,7 +2841,7 @@ public class Engine implements Serializable {
      *** search
      ******************************************************************************************************************/
 
-    public void nextMove(final Game newGame, final Node newRootNode)
+    public void searchBestMove(final Game newGame, final Node newRootNode)
             throws Exception {
 
         game = newGame;
@@ -2917,12 +2854,13 @@ public class Engine implements Serializable {
 
         Integer newRootNodeValue;
 
-        if (DebugUtils.searchNextMoveDebug) {
-            System.out.println(rootNode.toStringDebug());
-        }
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        System.out.println("START SEARCH --- currentSearchDepth=" + currentSearchDepth);
+        System.out.println(rootNode.toStringDebug());
 
         if (iterDeepeningSearch) {
-            currentSearchDepth = readPvMoves().size(); // per ottimizzare l'analisi
+            currentSearchDepth = readPvMoves().size() - qSearchAddedDepth;
+            if (currentSearchDepth < 0) { currentSearchDepth = 0; }
         } else {
             currentSearchDepth = searchDepth;
         }
@@ -2932,29 +2870,17 @@ public class Engine implements Serializable {
         }
 
         while ((rootNode.gameState == States.ONGOING
-                || rootNode.gameState == States.CHECK)
+                    || rootNode.gameState == States.CHECK)
                 && currentSearchDepth <= searchDepth
                 && (rootNodeValue == null || rootNodeValue < START_BETA)
                 && (!game.timeControlSet || (System.currentTimeMillis() - searchStartMillis) < searchMaxLengthMillis)
                 && !outsideStop) {
 
-            if (DebugUtils.searchStepByStepDebug) {
-                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                System.out.println("START SEARCH --- currentSearchDepth=" + currentSearchDepth);
-                System.out.println(rootNode.toStringDebug());
-            }
-
             visitedNodesCounter = 0;
 
             initHeuristicsLists();
 
-            if (DebugUtils.searchStepByStepDebug) {
-                EngineSearchTrace est = new EngineSearchTrace();
-                est.setEngine(this);
-                newRootNodeValue = est.search(searchNode, currentSearchDepth, START_ALPHA, START_BETA);
-            } else {
-                newRootNodeValue = search(searchNode, currentSearchDepth, START_ALPHA, START_BETA);
-            }
+            newRootNodeValue = search(searchNode, currentSearchDepth, START_ALPHA, START_BETA);
 
             if (newRootNodeValue != null) {
                 rootNodeValue = newRootNodeValue;
@@ -2963,17 +2889,10 @@ public class Engine implements Serializable {
                 }
             }
 
-            if (DebugUtils.searchStepByStepDebug
-                    || DebugUtils.searchNextMoveDebug) {
-                System.out.println(getPvRecord().toString());
-            }
-
             ++currentSearchDepth;
 
-        }
+            System.out.println(getPvRecord().toString());
 
-        if (DebugUtils.pvMapManagingDebug) {
-            System.out.println("pvMap.size()=" + pvMap.size());
         }
 
     }
@@ -2989,33 +2908,21 @@ public class Engine implements Serializable {
                 default:
                     throw new Exception("computeSearchLength: rootNode.playerColor=" + rootNode.playerColor);
             }
-
             if (leftTimeMillis > 0) {
                 searchMaxLengthMillis = leftTimeMillis / movesToGo - MainUtils.ENGINE_TIME_MILLIS;
             } else {
                 searchMaxLengthMillis = 0;
             }
-
-            if (DebugUtils.timeManagingDebug) {
-                System.out.println("computeSearchLength: searchMaxLengthMillis=" + searchMaxLengthMillis + " (compute)");
-            }
         } else {
             searchMaxLengthMillis = inputSearchMaxLengthMillis;
-            if (DebugUtils.timeManagingDebug) {
-                System.out.println("computeSearchLength: searchMaxLengthMillis=" + searchMaxLengthMillis + " (input)");
-            }
         }
 
         /*
          * minimum time
          */
 
-        if (searchMaxLengthMillis != null
-                && searchMaxLengthMillis < MainUtils.TIMER_PERIOD_MILLIS) {
+        if (searchMaxLengthMillis < MainUtils.TIMER_PERIOD_MILLIS) {
             searchMaxLengthMillis = MainUtils.TIMER_PERIOD_MILLIS;
-            if (DebugUtils.timeManagingDebug) {
-                System.out.println("computeSearchLength: searchMaxLengthMillis=" + searchMaxLengthMillis + " (minimum)");
-            }
         }
 
     }
@@ -3037,20 +2944,11 @@ public class Engine implements Serializable {
          * panic time
          */
 
-        if (DebugUtils.timeManagingDebug) {
-            System.out.println("panic time: rootNodeValue=" + rootNodeValue
-                    + " leftTimeMillis=" + leftTimeMillis);
-        }
-
         if (rootNodeValue != null
                 && rootNodeValue < 0) {
             panicTime = (int) ( ((double) leftTimeMillis / movesToGo) *
                     ((double) -rootNodeValue / matQueenMidgScore) );
             searchMaxLengthMillis += panicTime;
-            if (DebugUtils.timeManagingDebug) {
-                System.out.println("panic time: panicTime=" + panicTime
-                                      + " searchLengthMillis=" + searchMaxLengthMillis);
-            }
         }
 
     }
@@ -3144,21 +3042,63 @@ public class Engine implements Serializable {
                 node.doMove(move);
                 if (node.gameState != States.NOT_LEGAL) {
                     if (principalVarSearch) {
-                        if (pvMoveSearch) {
-                            nextScore = search(node, depth - 1, -beta, -alpha);
-                            score = (nextScore == null) ? null : -nextScore;
+                        if (lateMoveReduction) {
+                            if (pvMoveSearch) {
+                                nextScore = search(node, depth - 1, -beta, -alpha);
+                                score = (nextScore == null) ? null : -nextScore;
+                            } else {
+                                if (checkedMovesCounter > lateMoveMinMoves
+                                        && depth > lateMoveSubtrDepth
+                                        && move.function == Functions.MOVEMENT
+                                        && node.gameState == States.ONGOING) {
+                                    nextScore = zwSearch(node, depth - 1, -alpha - 1 - lateMoveSubtrDepth, -alpha);
+                                    score = (nextScore == null) ? null : -nextScore;
+                                    if (score != null
+                                            && score > alpha) {
+                                        nextScore = zwSearch(node, depth - 1, -alpha - 1, -alpha);
+                                        score = (nextScore == null) ? null : -nextScore;
+                                    }
+                                } else {
+                                    nextScore = zwSearch(node, depth - 1, -alpha - 1, -alpha);
+                                    score = (nextScore == null) ? null : -nextScore;
+                                }
+                                if (score != null
+                                        && score > alpha) {
+                                    nextScore = search(node, depth - 1, -beta, -alpha);
+                                    score = (nextScore == null) ? null : -nextScore;
+                                }
+                            }
                         } else {
-                            nextScore = zwSearch(node, depth - 1, -alpha - 1, -alpha);
+                            if (pvMoveSearch) {
+                                nextScore = search(node, depth - 1, -beta, -alpha);
+                                score = (nextScore == null) ? null : -nextScore;
+                            } else {
+                                nextScore = zwSearch(node, depth - 1, -alpha - 1, -alpha);
+                                score = (nextScore == null) ? null : -nextScore;
+                                if (score != null
+                                        && score > alpha) {
+                                    nextScore = search(node, depth - 1, -beta, -alpha);
+                                    score = (nextScore == null) ? null : -nextScore;
+                                }
+                            }
+                        }
+                    } else {
+                        if (lateMoveReduction
+                                && checkedMovesCounter > lateMoveMinMoves
+                                && depth > lateMoveSubtrDepth
+                                && move.function == Functions.MOVEMENT
+                                && node.gameState == States.ONGOING) {
+                            nextScore = search(node, depth - 1 - lateMoveSubtrDepth, -beta, -alpha);
                             score = (nextScore == null) ? null : -nextScore;
                             if (score != null
                                     && score > alpha) {
                                 nextScore = search(node, depth - 1, -beta, -alpha);
                                 score = (nextScore == null) ? null : -nextScore;
                             }
+                        } else {
+                            nextScore = search(node, depth - 1, -beta, -alpha);
+                            score = (nextScore == null) ? null : -nextScore;
                         }
-                    } else {
-                        nextScore = search(node, depth - 1, -beta, -alpha);
-                        score = (nextScore == null) ? null : -nextScore;
                     }
                 }
                 node.undoMove(move, prevWhiteShortCg, prevWhiteLongCg, prevBlackShortCg, prevBlackLongCg,
@@ -3170,7 +3110,7 @@ public class Engine implements Serializable {
                 pvMoveSearch = false;
                 if (score != null
                         && score > alpha) {
-                    pvMap.put(node.nodeHashCode, move.toIntMove());
+                    pvMap.put(node.nodeHashCode, move);
                     alpha = score;
                     if (historyHeuristic
                             && move.targetPiece == null
@@ -3313,7 +3253,7 @@ public class Engine implements Serializable {
                 pvMoveSearch = false;
                 if (score != null
                         && score > alpha) {
-                    pvMap.put(node.nodeHashCode, move.toIntMove());
+                    pvMap.put(node.nodeHashCode, move);
                     alpha = score;
                     if (historyHeuristic
                             && move.targetPiece == null
@@ -3469,7 +3409,7 @@ public class Engine implements Serializable {
                     }
                     if (score != null
                             && score > alpha) {
-                        pvMap.put(node.nodeHashCode, move.toIntMove());
+                        pvMap.put(node.nodeHashCode, move);
                         alpha = score;
                         if (alphaBetaPruning
                                 && score >= beta) {
@@ -3594,7 +3534,7 @@ public class Engine implements Serializable {
                 }
                 if (score != null
                         && score > alpha) {
-                    pvMap.put(node.nodeHashCode, move.toIntMove());
+                    pvMap.put(node.nodeHashCode, move);
                     alpha = score;
                     if (alphaBetaPruning
                             && score >= beta) {
@@ -3626,8 +3566,7 @@ public class Engine implements Serializable {
      */
 
     private Move selectNextMove(final Node node, final int checkedMovesCounter, final boolean pvMoveSearch,
-            final Move[] movesList, final int movesListMaxIndex)
-            throws Exception {
+            final Move[] movesList, final int movesListMaxIndex) {
 
         Move move, bestMove = null;
         int maxValue;
@@ -3677,31 +3616,17 @@ public class Engine implements Serializable {
         return bestMove;
     }
 
-    private Move selectPvMove(final Node node, final Move[] movesList, final int movesListMaxIndex)
-            throws Exception {
+    private Move selectPvMove(final Node node, final Move[] movesList, final int movesListMaxIndex) {
 
-        Integer intMove;
         Move pvMove;
 
-        if (DebugUtils.selectionSortDebug) {
-            System.out.println(" *** PV selectPvMove: PV_MAP=" + pvMap);
-            System.out.println(" *** PV selectPvMove: movesList=" + arrayToString(movesList));
-        }
+        pvMove = pvMap.get(node.nodeHashCode);
 
-        intMove = pvMap.get(node.nodeHashCode);
-
-        if (intMove != null) {
-            pvMove = new Move(intMove);
-            if (DebugUtils.selectionSortDebug) {
-                System.out.println(" *** PV selectPvMove: pvMove=" + pvMove);
-            }
+        if (pvMove != null) {
             for (int i = 0; i <= movesListMaxIndex; ++i) {
                 if (movesList[i].orderValue != null
                         && movesList[i].equals(pvMove)) {
                     movesList[i].orderValue = null;
-                    if (DebugUtils.selectionSortDebug) {
-                        System.out.println(" *** PV selectPvMove: movesList=" + arrayToString(movesList));
-                    }
                     return movesList[i];
                 }
             }
@@ -3761,7 +3686,7 @@ public class Engine implements Serializable {
         }
 
         return new PvRecord(currentSearchDepth, searchTimeMillis, rootNodeValue, visitedNodesCounter,
-                recordPvMovesList, tMapSize);
+                recordPvMovesList, pvMap.size(), tMapSize);
     }
 
     public LinkedList<Move> readPv()
@@ -3770,15 +3695,13 @@ public class Engine implements Serializable {
         final LinkedList<Move> pvMovesList = new LinkedList<>();
 
         Node node = rootNode;
-        Integer intMove;
         Move move;
 
         // non si può leggere fino a che si trova una mossa, perché andrebbe in loop
         // nel caso in cui nella pv ci fosse una ripetizione di mosse
         for (int i = 0; i <= currentSearchDepth; ++i) {
-            intMove = pvMap.get(node.nodeHashCode);
-            if (intMove != null) {
-                move = new Move(intMove);
+            move = pvMap.get(node.nodeHashCode);
+            if (move != null) {
                 pvMovesList.add(move);
                 node = new Node(node, move);
             }
@@ -3793,18 +3716,17 @@ public class Engine implements Serializable {
         final LinkedList<Move> pvMovesList = new LinkedList<>();
 
         Node node = rootNode;
-        Integer intMove;
         Move move;
 
         boolean nullMove = false;
         boolean repeatedMove = false;
 
-        while (!nullMove && !repeatedMove) {
-            intMove = pvMap.get(node.nodeHashCode);
-            if (intMove == null) {
+        while (!nullMove
+                && !repeatedMove) {
+            move = pvMap.get(node.nodeHashCode);
+            if (move == null) {
                 nullMove = true;
             } else {
-                move = new Move(intMove);
                 if (pvMovesList.contains(move)) {
                     repeatedMove = true;
                 } else {
@@ -3841,30 +3763,6 @@ public class Engine implements Serializable {
             case States.CHECK:
                 evaluatePosition(evalNode);
                 nodeValue = taperedScore;
-                if (DebugUtils.evaluationFlipPosDebug) {
-                    // qui perché in evaluatePosition evalNode viene sovrascritto da flipNode
-//                            System.out.println("evalNode=" + evalNode.toStringDebug());
-                    Node flipNode = new Node(Fen.flipColor(evalNode.toFen()));
-                    evaluatePosition(flipNode);
-                    int flipValue = taperedScore;
-                    if (nodeValue != flipValue) {
-                        System.out.println("flipValue != nodeValue");
-                        System.out.println(flipNode.toStringDebug());
-                        System.out.println("nodeValue=" + nodeValue);
-                        System.out.println("flipValue=" + flipValue);
-                    }
-                }
-                if (DebugUtils.evaluaTionVsShowDebug) {
-                    EvaluaShow.evaluation(this, evalNode);
-                    int showValue = EvaluaShow.taperedScore;
-                    if (nodeValue != showValue) {
-                        System.out.println("showValue != nodeValue");
-                        System.out.println(evalNode.toStringDebug());
-                        System.out.println("nodeValue=" + nodeValue);
-                        System.out.println("showValue=" + showValue);
-                        System.exit(0);
-                    }
-                }
                 break;
             case States.CHECKMATE:
                 // chi ha la mossa subisce il matto
