@@ -4960,11 +4960,11 @@ public class Engine implements Serializable {
         switch (sideColor) {
             case Colors.WHITE:
                 kingSquare = Long.numberOfTrailingZeros(evalNode.whiteKingBb);
-                sidePawnShieldBb = BitBoards.WK_PSHIELD_BB_LT[/*Squares.rank()*/kingSquare % Squares.EDGE] & evalNode.whitePawnsBb;
+                sidePawnShieldBb = BitBoards.WK_PSHIELD_BB_LT[kingSquare % Squares.EDGE] & evalNode.whitePawnsBb;
                 break;
             case Colors.BLACK:
                 kingSquare = Long.numberOfTrailingZeros(evalNode.blackKingBb);
-                sidePawnShieldBb = BitBoards.BK_PSHIELD_BB_LT[/*Squares.rank()*/kingSquare % Squares.EDGE] & evalNode.blackPawnsBb;
+                sidePawnShieldBb = BitBoards.BK_PSHIELD_BB_LT[kingSquare % Squares.EDGE] & evalNode.blackPawnsBb;
                 break;
             default:
                 throw new Exception("sideColor=" + sideColor);

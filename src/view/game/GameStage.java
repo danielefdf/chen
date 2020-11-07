@@ -596,7 +596,7 @@ public class GameStage extends Stage {
             throws Exception {
 
         nodePane = new NodePane(this, panelNode, panelMove,
-                UserOptions.showAvailablesOption, UserOptions.showNodeDetailsOption, /*showNodeSetPane*/false,
+                UserOptions.showAvailablesOption, UserOptions.showNodeDetailsOption, false,
                 BOARD_TILE_EDGE);
 
         nodePane.setNodePaneListener(new NodePaneListener() {
@@ -712,11 +712,11 @@ public class GameStage extends Stage {
                 && analysisStage.isShowing()) {
             Engine e = analysisStage.getEngineHBox().getEngine();
             analysisStage.getEvaluationBorderPane().resetEvaluationBorderPane(e, focusNode);
-            analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, /*allowedToGame*/true);
-            analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, /*allowedToGame*/true);
+            analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, true);
+            analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, true);
         } else if (searchStage != null
                     && searchStage.isShowing()) {
-            searchStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, /*allowedToGame*/true);
+            searchStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, true);
         }
 
     }
@@ -812,7 +812,7 @@ public class GameStage extends Stage {
     private void startAnalysisStage()
     		throws Exception {
 
-        analysisStage = new AnalysisStage(this, game.analysisPlayer.engine, focusNode, /*move*/null);
+        analysisStage = new AnalysisStage(this, game.analysisPlayer.engine, focusNode, null);
 
         analysisStage.getEngineHBox().setEngineHBoxListener(new EngineHBoxListener() {
 
@@ -836,8 +836,8 @@ public class GameStage extends Stage {
                 resetGameStage();
 
                 analysisStage.getEvaluationBorderPane().resetEvaluationBorderPane(newEngine, focusNode);
-                analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, /*allowedToGame*/true);
-                analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, /*allowedToGame*/true);
+                analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, true);
+                analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, true);
                 // il ritorno al gioco è permesso anche se player è stato modificato - scelta arbitraria
 
             }
@@ -853,8 +853,8 @@ public class GameStage extends Stage {
                 stopCurrentMoveThread();
                 startAnalysisMoveThread(resetNode);
 
-                analysisStage.getMovesHBox().resetMovesHBox(resetNode, /*focusMove*/null, /*allowedToGame*/false);
-                analysisStage.getSearchHBox().resetSearchHBox(resetNode, /*focusMove*/null, /*allowedToGame*/false);
+                analysisStage.getMovesHBox().resetMovesHBox(resetNode, null, false);
+                analysisStage.getSearchHBox().resetSearchHBox(resetNode, null, false);
 
             }
 
@@ -878,8 +878,8 @@ public class GameStage extends Stage {
                     Engine e = analysisStage.getEngineHBox().getEngine();
 
                     analysisStage.getEvaluationBorderPane().resetEvaluationBorderPane(e, focusNode);
-                    analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, /*allowedToGame*/true);
-                    analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, /*allowedToGame*/true);
+                    analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, true);
+                    analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, true);
 
                 }
 
@@ -895,8 +895,8 @@ public class GameStage extends Stage {
                 Engine e = analysisStage.getEngineHBox().getEngine();
 
                 analysisStage.getEvaluationBorderPane().resetEvaluationBorderPane(e, evalNode);
-                analysisStage.getMovesHBox().resetMovesHBox(evalNode, evalMove, /*allowedToGame*/false);
-                analysisStage.getSearchHBox().resetSearchHBox(evalNode, evalMove, /*allowedToGame*/false);
+                analysisStage.getMovesHBox().resetMovesHBox(evalNode, evalMove, false);
+                analysisStage.getSearchHBox().resetSearchHBox(evalNode, evalMove, false);
 
             }
 
@@ -926,8 +926,8 @@ public class GameStage extends Stage {
                     Engine e = analysisStage.getEngineHBox().getEngine();
 
                     analysisStage.getEvaluationBorderPane().resetEvaluationBorderPane(e, focusNode);
-                    analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, /*allowedToGame*/true);
-                    analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, /*allowedToGame*/true);
+                    analysisStage.getMovesHBox().resetMovesHBox(focusNode, focusMove, true);
+                    analysisStage.getSearchHBox().resetSearchHBox(focusNode, focusMove, true);
 
                 }
 
@@ -943,8 +943,8 @@ public class GameStage extends Stage {
                 Engine e = analysisStage.getEngineHBox().getEngine();
 
                 analysisStage.getEvaluationBorderPane().resetEvaluationBorderPane(e, evalNode);
-                analysisStage.getMovesHBox().resetMovesHBox(evalNode, evalMove, /*allowedToGame*/false);
-                analysisStage.getSearchHBox().resetSearchHBox(evalNode, evalMove, /*allowedToGame*/false);
+                analysisStage.getMovesHBox().resetMovesHBox(evalNode, evalMove, false);
+                analysisStage.getSearchHBox().resetSearchHBox(evalNode, evalMove, false);
 
             }
 
