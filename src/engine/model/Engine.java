@@ -107,7 +107,6 @@ public class Engine implements Serializable {
     public boolean iterDeepeningSearch;
     public boolean principalVarSearch;
     public boolean lateMoveReduction;
-        public int lateMoveMinMoves;
         public int lateMoveSubtrDepth;
     public boolean killerHeuristic;
     public boolean historyHeuristic;
@@ -332,19 +331,21 @@ public class Engine implements Serializable {
 
         movesToGo = 30;
         searchDepth = 64;
-        alphaBetaPruning      = true;
-        delayedLegalityCheck  = true;
-        delayedMateCheck      = true;
-        sortedMovesNumber     = 7;
-        searchCheckIncrement  = true;
-        quiescentPosSearch    = true;
-            qSearchAddedDepth = 3;
-            qChecksSearch     = true;
-        iterDeepeningSearch   = true;
-        principalVarSearch    = true;
-        killerHeuristic       = true;
-        historyHeuristic      = true;
-        transpositionsMap     = true;
+        alphaBetaPruning       = true;
+        delayedLegalityCheck   = true;
+        delayedMateCheck       = true;
+        sortedMovesNumber      = 7;
+        searchCheckIncrement   = true;
+        quiescentPosSearch     = true;
+            qSearchAddedDepth  = 3;
+            qChecksSearch      = true;
+        iterDeepeningSearch    = true;
+        principalVarSearch     = true;
+        lateMoveReduction      = false;
+            lateMoveSubtrDepth = 3;
+        killerHeuristic        = true;
+        historyHeuristic       = true;
+        transpositionsMap      = true;
 
         /*
          * material
@@ -676,6 +677,7 @@ public class Engine implements Serializable {
         miniMaxEngine.qChecksSearch        = false;
         miniMaxEngine.iterDeepeningSearch  = false;
         miniMaxEngine.principalVarSearch   = false;
+        miniMaxEngine.lateMoveReduction    = false;
         miniMaxEngine.killerHeuristic      = false;
         miniMaxEngine.historyHeuristic     = false;
         miniMaxEngine.transpositionsMap    = false;
@@ -1669,8 +1671,7 @@ public class Engine implements Serializable {
         Move newMove;
 
         newMove = new Move(Functions.SHORT_CG, null, null, null, null, null);
-        newMove.orderValue = computeMoveScore(Colors.WHITE, newMove,
-                /*fromSquareBb*/BitBoards.EMPTY, /*toSquareBb*/BitBoards.EMPTY);
+        newMove.orderValue = computeMoveScore(Colors.WHITE, newMove, BitBoards.EMPTY, BitBoards.EMPTY);
 
         if (!delayedLegalityCheck) {
             Node nextNode = new Node(movesNode, newMove);
@@ -1690,8 +1691,7 @@ public class Engine implements Serializable {
         Move newMove;
 
         newMove = new Move(Functions.LONG_CG, null, null, null, null, null);
-        newMove.orderValue = computeMoveScore(Colors.WHITE, newMove,
-                /*fromSquareBb*/BitBoards.EMPTY, /*toSquareBb*/BitBoards.EMPTY);
+        newMove.orderValue = computeMoveScore(Colors.WHITE, newMove, BitBoards.EMPTY, BitBoards.EMPTY);
 
         if (!delayedLegalityCheck) {
             Node nextNode = new Node(movesNode, newMove);
@@ -1711,8 +1711,7 @@ public class Engine implements Serializable {
         Move newMove;
 
         newMove = new Move(Functions.SHORT_CG, null, null, null, null, null);
-        newMove.orderValue = computeMoveScore(Colors.BLACK, newMove,
-                /*fromSquareBb*/BitBoards.EMPTY, /*toSquareBb*/BitBoards.EMPTY);
+        newMove.orderValue = computeMoveScore(Colors.BLACK, newMove, BitBoards.EMPTY, BitBoards.EMPTY);
 
         if (!delayedLegalityCheck) {
             Node nextNode = new Node(movesNode, newMove);
@@ -1732,8 +1731,7 @@ public class Engine implements Serializable {
         Move newMove;
 
         newMove = new Move(Functions.LONG_CG, null, null, null, null, null);
-        newMove.orderValue = computeMoveScore(Colors.BLACK, newMove,
-                /*fromSquareBb*/BitBoards.EMPTY, /*toSquareBb*/BitBoards.EMPTY);
+        newMove.orderValue = computeMoveScore(Colors.BLACK, newMove, BitBoards.EMPTY, BitBoards.EMPTY);
 
         if (!delayedLegalityCheck) {
             Node nextNode = new Node(movesNode, newMove);
@@ -2998,7 +2996,7 @@ public class Engine implements Serializable {
             tRec = tMap.get(node.nodeHashCode);
             if (tRec != null && tRec.depth >= depth) {
                 score = tRec.nodeValue.intValue();
-                /****/ if (tRec.accuracy == Accuracies.EXACT_VALUE) {
+                if (tRec.accuracy == Accuracies.EXACT_VALUE) {
                     return score;
                 } else if (tRec.accuracy == Accuracies.LOWER_BOUND && score > alpha) {
                     alpha = score;
@@ -3009,7 +3007,7 @@ public class Engine implements Serializable {
         }
 
         if (depth == 0) {
-            /****/ if (searchCheckIncrement
+            if (searchCheckIncrement
                     && node.gameState == States.CHECK) {
                 score = search(node, 1, alpha, beta);
             } else if (quiescentPosSearch && qChecksSearch) {
@@ -3047,7 +3045,7 @@ public class Engine implements Serializable {
                                 nextScore = search(node, depth - 1, -beta, -alpha);
                                 score = (nextScore == null) ? null : -nextScore;
                             } else {
-                                if (checkedMovesCounter > lateMoveMinMoves
+                                if (checkedMovesCounter > sortedMovesNumber
                                         && depth > lateMoveSubtrDepth
                                         && move.function == Functions.MOVEMENT
                                         && node.gameState == States.ONGOING) {
@@ -3084,7 +3082,7 @@ public class Engine implements Serializable {
                         }
                     } else {
                         if (lateMoveReduction
-                                && checkedMovesCounter > lateMoveMinMoves
+                                && checkedMovesCounter > sortedMovesNumber
                                 && depth > lateMoveSubtrDepth
                                 && move.function == Functions.MOVEMENT
                                 && node.gameState == States.ONGOING) {
@@ -3202,7 +3200,7 @@ public class Engine implements Serializable {
             tRec = tMap.get(node.nodeHashCode);
             if (tRec != null && tRec.depth >= depth) {
                 score = tRec.nodeValue.intValue();
-                /****/ if (tRec.accuracy == Accuracies.EXACT_VALUE) {
+                if (tRec.accuracy == Accuracies.EXACT_VALUE) {
                     return score;
                 } else if (tRec.accuracy == Accuracies.LOWER_BOUND && score > alpha) {
                     alpha = score;
@@ -3355,7 +3353,7 @@ public class Engine implements Serializable {
             tRec = tMap.get(node.nodeHashCode);
             if (tRec != null && tRec.depth >= depth) {
                 score = tRec.nodeValue.intValue();
-                /****/ if (tRec.accuracy == Accuracies.EXACT_VALUE) {
+                if (tRec.accuracy == Accuracies.EXACT_VALUE) {
                     return score;
                 } else if (tRec.accuracy == Accuracies.LOWER_BOUND && score > alpha) {
                     alpha = score;
@@ -3488,7 +3486,7 @@ public class Engine implements Serializable {
             tRec = tMap.get(node.nodeHashCode);
             if (tRec != null && tRec.depth >= depth) {
                 score = tRec.nodeValue.intValue();
-                /****/ if (tRec.accuracy == Accuracies.EXACT_VALUE) {
+                if (tRec.accuracy == Accuracies.EXACT_VALUE) {
                     return score;
                 } else if (tRec.accuracy == Accuracies.LOWER_BOUND && score > alpha) {
                     alpha = score;
@@ -3653,7 +3651,7 @@ public class Engine implements Serializable {
 
         for (int i = 0; i <= MOVES_ENGINE.movesList.length - 1
                 && i <= MOVES_ENGINE.sortedMovesNumber; ++i) {
-            movesLinkedList.add(selectNextMove(node, i, /*pvMoveSearch*/true,
+            movesLinkedList.add(selectNextMove(node, i, true,
                     MOVES_ENGINE.movesList, MOVES_ENGINE.movesListMaxIndex));
         }
 
@@ -4498,20 +4496,20 @@ public class Engine implements Serializable {
      ********************************************************************************************************************/
 
     private void addPawnStepScore(final byte sideColor, final int piece, final int fromSquare, final int toSquare,
-                                  final long toSquareBb) {
+            final long toSquareBb) {
 
         sideMidg += mobPawnStepScore;
     }
 
     private void addPawnDoubleStepScore(final byte sideColor, final int piece, final int fromSquare, final int toSquare,
-                                        final long toSquareBb) {
+            final long toSquareBb) {
 
         sideMidg += mobPawnDoubleStepScore;
     }
 
     private void addPawnCapturesScore(final byte sideColor, final int piece, final int fromSquare, final int toSquare,
-                                      final long toSquareBb)
-            throws Exception {
+            final long toSquareBb)
+                throws Exception {
 
         final Byte targetPiece;
 
@@ -4538,8 +4536,8 @@ public class Engine implements Serializable {
     }
 
     private void addPieceMovesScore(final byte sideColor, final int piece, final int fromSquare, final int toSquare,
-                                    final long toSquareBb)
-            throws Exception {
+            final long toSquareBb)
+                throws Exception {
 
         final Byte targetPiece = evalNode.squarePieceMap[toSquare];
 

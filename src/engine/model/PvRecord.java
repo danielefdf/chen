@@ -125,7 +125,7 @@ public final class PvRecord implements Serializable {
         statsSb.append(" pvMapSize=")
                 .append(pvMapSize);
 
-        statsSb.append(" tMapSize")
+        statsSb.append(" tMapSize=")
                 .append(tMapSize);
 
         return statsSb.toString();

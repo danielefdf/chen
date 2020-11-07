@@ -1544,6 +1544,8 @@ public class GameStage extends Stage {
             protected Void call()
                     throws Exception {
 
+                nodePane.startBoardProgressIndicator();
+
                 System.out.println("player=" + player);
 
                 player.engine.searchBestMove(game, focusNode);
@@ -1553,6 +1555,8 @@ public class GameStage extends Stage {
         };
 
         nextMoveTask.setOnSucceeded((wse) -> {
+
+            nodePane.stopBoardProgressIndicator();
 
             if (ongoingGame) { // altrimenti scatena threads in successione che si sovrappongono
 

@@ -1477,7 +1477,7 @@ public class NodePane extends StackPane {
 
     private void setBoardProgressIndicator() {
 
-        boardProgressIndicator.setVisible(UserOptions.showThinkingOption);
+        boardProgressIndicator.setVisible(false);
 
     }
 

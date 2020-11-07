@@ -214,10 +214,6 @@ public class EParmsVBox extends VBox {
             engine.lateMoveReduction = lateMoveReductionCPHB.getCheckBox().isSelected();
             checkOnEngineParmChanged();
         });
-        lateMoveMinMovesSPHB = new ESpinnerParmHBox("late move min moves", engine.lateMoveMinMoves, null, () -> {
-            engine.lateMoveMinMoves = lateMoveMinMovesSPHB.getMidgScoreSpinner().getValue();
-            checkOnEngineParmChanged();
-        });
         lateMoveSubtrDepthSPHB = new ESpinnerParmHBox("late move subtr depth", engine.lateMoveSubtrDepth, null, () -> {
             engine.lateMoveSubtrDepth = lateMoveSubtrDepthSPHB.getMidgScoreSpinner().getValue();
             checkOnEngineParmChanged();
@@ -267,7 +263,6 @@ public class EParmsVBox extends VBox {
         iterDeepeningSearchCPHB.resetCheckParmHBox(  engine.iterDeepeningSearch);
         principalVarSearchCPHB.resetCheckParmHBox(   engine.principalVarSearch);
         lateMoveReductionCPHB.resetCheckParmHBox(    engine.lateMoveReduction);
-        lateMoveMinMovesSPHB.resetSpinnerParmHBox(   engine.lateMoveMinMoves,      null);
         lateMoveSubtrDepthSPHB.resetSpinnerParmHBox( engine.lateMoveSubtrDepth,    null);
         killerHeuristicCPHB.resetCheckParmHBox(      engine.killerHeuristic);
         historyHeuristicCPHB.resetCheckParmHBox(     engine.historyHeuristic);

@@ -17,8 +17,6 @@ public class PreferencesGridPane extends GridPane {
 
     private CheckBox showSplashCheckBox;
     private Label    showSplashLabel;
-    private CheckBox showWelcomeCheckBox;
-    private Label    showWelcomeLabel;
     private CheckBox showNodeDetailsCheckBox;
     private Label    showNodeDetailsLabel;
     private CheckBox showAvailablesCheckBox;
@@ -44,21 +42,18 @@ public class PreferencesGridPane extends GridPane {
 
         add(showSplashCheckBox,      0, 0);
         add(showSplashLabel,         1, 0);
-        add(showWelcomeCheckBox,     0, 1);
-        add(showWelcomeLabel,        1, 1);
-        add(showAvailablesCheckBox,  0, 2);
-        add(showAvailablesLabel,     1, 2);
-        add(showNodeDetailsCheckBox, 0, 3);
-        add(showNodeDetailsLabel,    1, 3);
-        add(showThinkingCheckBox,    0, 4);
-        add(showThinkingLabel,       1, 4);
-        add(rotateBoardCheckBox,     0, 5);
-        add(rotateBoardLabel,        1, 5);
+        add(showAvailablesCheckBox,  0, 1);
+        add(showAvailablesLabel,     1, 1);
+        add(showNodeDetailsCheckBox, 0, 2);
+        add(showNodeDetailsLabel,    1, 2);
+        add(showThinkingCheckBox,    0, 3);
+        add(showThinkingLabel,       1, 3);
+        add(rotateBoardCheckBox,     0, 4);
+        add(rotateBoardLabel,        1, 4);
 
         Insets i = new Insets(15);
 
         GridPane.setMargin(showSplashCheckBox,      i);
-        GridPane.setMargin(showWelcomeCheckBox,     i);
         GridPane.setMargin(showNodeDetailsCheckBox, i);
         GridPane.setMargin(showAvailablesCheckBox,  i);
         GridPane.setMargin(showThinkingCheckBox,    i);
@@ -67,7 +62,6 @@ public class PreferencesGridPane extends GridPane {
         Insets j = new Insets(15, 15, 15, 0);
 
         GridPane.setMargin(showSplashLabel,      j);
-        GridPane.setMargin(showWelcomeLabel,     j);
         GridPane.setMargin(showNodeDetailsLabel, j);
         GridPane.setMargin(showAvailablesLabel,  j);
         GridPane.setMargin(showThinkingLabel,    j);
@@ -85,15 +79,6 @@ public class PreferencesGridPane extends GridPane {
         });
 
         showSplashLabel = new Label("show splash screen");
-
-        showWelcomeCheckBox = new CheckBox();
-        showWelcomeCheckBox.setSelected(UserOptions.showWelcomeOption);
-        showWelcomeCheckBox.setOnAction(e -> {
-            CheckBox cb = (CheckBox) e.getSource();
-            UserOptions.showWelcomeOption = cb.isSelected();
-        });
-
-        showWelcomeLabel = new Label("show welcome page");
 
         showNodeDetailsCheckBox = new CheckBox();
         showNodeDetailsCheckBox.setSelected(UserOptions.showNodeDetailsOption);

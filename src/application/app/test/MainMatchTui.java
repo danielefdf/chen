@@ -121,6 +121,8 @@ public class MainMatchTui extends Application {
             we.qSearchAddedDepth   = 5;
             we.qChecksSearch       = true;
         we.principalVarSearch      = true;
+        we.lateMoveReduction       = false;
+            we.lateMoveSubtrDepth  = 3;
         we.killerHeuristic         = true;
         we.historyHeuristic        = true;
         we.transpositionsMap       = true;
@@ -136,6 +138,8 @@ public class MainMatchTui extends Application {
             be.qSearchAddedDepth   = 5;
             be.qChecksSearch       = true;
         be.principalVarSearch      = true;
+        be.lateMoveReduction       = false;
+            be.lateMoveSubtrDepth  = 3;
         be.killerHeuristic         = true;
         be.historyHeuristic        = true;
         be.transpositionsMap       = true;

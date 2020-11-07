@@ -24,7 +24,6 @@ public class UserOptions implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public static boolean showSplashOption;
-    public static boolean showWelcomeOption;
     public static boolean showNodeDetailsOption;
     public static boolean showAvailablesOption;
     public static boolean showThinkingOption;
@@ -33,7 +32,6 @@ public class UserOptions implements Serializable {
     public static void setDefaults() {
 
         showSplashOption      = true;
-        showWelcomeOption     = true;
         showNodeDetailsOption = true;
         showAvailablesOption  = true;
         showThinkingOption    = true;
@@ -47,7 +45,6 @@ public class UserOptions implements Serializable {
              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
             showSplashOption      = (boolean) ois.readObject();
-            showWelcomeOption     = (boolean) ois.readObject();
             showNodeDetailsOption = (boolean) ois.readObject();
             showAvailablesOption  = (boolean) ois.readObject();
             showThinkingOption    = (boolean) ois.readObject();
@@ -74,10 +71,9 @@ public class UserOptions implements Serializable {
     public static void save() {
 
         try (FileOutputStream fos = new FileOutputStream(ViewUtils.OPTIONS_FILE_PATH);
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
             oos.writeObject(showSplashOption);
-            oos.writeObject(showWelcomeOption);
             oos.writeObject(showNodeDetailsOption);
             oos.writeObject(showAvailablesOption);
             oos.writeObject(showThinkingOption);
