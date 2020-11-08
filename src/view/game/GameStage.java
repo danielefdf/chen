@@ -15,10 +15,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -197,11 +194,8 @@ public class GameStage extends Stage {
         fileMenu.setMnemonicParsing(true);
 
         fileMenu.getItems().add(exitMenuItem);
-            try {
-                prefsMenuItem = new MenuItem("preferences...");
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
+
+            prefsMenuItem = new MenuItem("preferences...");
             prefsMenuItem.setOnAction(ae -> {
                 try {
 
@@ -222,6 +216,12 @@ public class GameStage extends Stage {
         editMenu.getItems().add(prefsMenuItem);
 
             aboutMenuItem = new MenuItem("about");
+            aboutMenuItem.setOnAction(ae -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Check out this page");
+                alert.setContentText("https://github.com/danielefdf/chen");
+                alert.showAndWait();
+            });
         helpMenu = new Menu("_help");
         helpMenu.setMnemonicParsing(true);
 

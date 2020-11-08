@@ -28,7 +28,6 @@ public class EParmsVBox extends VBox {
         private ECheckParmHBox   iterDeepeningSearchCPHB;
         private ECheckParmHBox   principalVarSearchCPHB;
         private ECheckParmHBox   lateMoveReductionCPHB;
-        private ESpinnerParmHBox lateMoveMinMovesSPHB;
         private ESpinnerParmHBox lateMoveSubtrDepthSPHB;
         private ECheckParmHBox   killerHeuristicCPHB;
         private ECheckParmHBox   historyHeuristicCPHB;
@@ -244,6 +243,8 @@ public class EParmsVBox extends VBox {
         searchOptionsPTP.add(qSearchAddedDepthSPHB,    0, ++r);
         searchOptionsPTP.add(iterDeepeningSearchCPHB,  0, ++r);
         searchOptionsPTP.add(principalVarSearchCPHB,   0, ++r);
+        searchOptionsPTP.add(lateMoveReductionCPHB,    0, ++r);
+        searchOptionsPTP.add(lateMoveSubtrDepthSPHB,   0, ++r);
         searchOptionsPTP.add(killerHeuristicCPHB,      0, ++r);
         searchOptionsPTP.add(historyHeuristicCPHB,     0, ++r);
         searchOptionsPTP.add(transpositionsMapCPHB,    0, ++r);

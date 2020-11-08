@@ -273,15 +273,21 @@ public class EvaluationBorderPane extends BorderPane {
         setNodeToolBarListeners(nodeTBB);
 
         if (nodesToolBar.getItems().size() == 3) {
+
+            /* add item */
+
+            // [x] [|] [x]
+            // [x] [|] [x] [*0*]
             nodesToolBar.getItems().add(nodeTBB);
+
         } else {
             int prevNTBIndex;
             NodeToolBarButton prevNTB;
 
             /* add item */
 
-            // [x0x][1][2][3]
-            // [x0x][1][2][3][*3*]
+            // [x] [|] [x] [1] [2] [3]
+            // [x] [|] [x] [1] [2] [3] [*0*]
             prevNTBIndex = nodesToolBar.getItems().size() - 1;
             prevNTB = copyNodeToolBarButton(
                     (NodeToolBarButton) nodesToolBar.getItems().get(prevNTBIndex));
@@ -289,9 +295,9 @@ public class EvaluationBorderPane extends BorderPane {
 
             /* move items */
 
-            // [x0x][1][2][3][*3*]
-            // [x0x][1][2][*2*][*3*]
-            // [x0x][1][*1*][*2*][*3*]
+            // [x] [|] [x] [1] [2]   [3]   [*0*]
+            // [x] [|] [x] [1] [2]   [*0*] [*3*]
+            // [x] [|] [x] [1] [*0*] [*2*] [*3*]
             prevNTBIndex = nodesToolBar.getItems().size() - 2;
             for (int i = prevNTBIndex; i >= 2; --i) {
                 prevNTB = copyNodeToolBarButton(
@@ -301,7 +307,7 @@ public class EvaluationBorderPane extends BorderPane {
 
             /* set 1st item */
 
-            // [x0x][*4*][*1*][*2*][*3*]
+            // [x] [|] [x] [*0*] [*1*] [*2*] [*3*]
             nodesToolBar.getItems().set(1, nodeTBB);
         }
 
