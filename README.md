@@ -19,7 +19,7 @@ Each of these aspects can be activated or not, and is configurable:
 ```java
     public boolean alphaBetaPruning;
     public boolean delayedLegalityCheck;
-    public boolean delayedMateCheck;  // utile per perft test
+    public boolean delayedMateCheck;
     public int sortedMovesNumber;
     public boolean searchCheckIncrement;
     public boolean quiescentPosSearch;
@@ -28,7 +28,6 @@ Each of these aspects can be activated or not, and is configurable:
     public boolean iterDeepeningSearch;
     public boolean principalVarSearch;
     public boolean lateMoveReduction;
-        public int lateMoveMinMoves;
         public int lateMoveSubtrDepth;
     public boolean killerHeuristic;
     public boolean historyHeuristic;
