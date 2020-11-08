@@ -4,7 +4,12 @@ import engine.model.Node;
 
 public interface EvaluationBorderPaneListener {
 
-    void onEvaluationNodeChanged(Node node)
+    Thread getNextMoveThread();
+
+    void onSearchButtonPressed(Node node)
     		throws Exception;
+
+    void onEvaluationNodeChanged(Node node)
+            throws Exception;
 
 }

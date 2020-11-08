@@ -847,6 +847,24 @@ public class GameStage extends Stage {
         analysisStage.getEvaluationBorderPane().setEvaluationBorderPaneListener(new EvaluationBorderPaneListener() {
 
             @Override
+            public Thread getNextMoveThread() {
+                return nextMoveThread;
+            }
+
+            @Override
+            public void onSearchButtonPressed(Node node)
+                    throws Exception {
+
+                if (nextMoveThread != null
+                        && nextMoveThread.isAlive()) {
+                    stopCurrentMoveThread();
+                } else {
+                    startAnalysisMoveThread(node);
+                }
+
+            }
+
+            @Override
             public void onEvaluationNodeChanged(Node resetNode)
                     throws Exception {
 
@@ -1359,7 +1377,9 @@ public class GameStage extends Stage {
 
             switch (player.kind) {
             case Kinds.HUMAN:
-                startAnalysisMoveThread(focusNode);
+                if (game.gameType == GameType.MATCH) {
+                    startAnalysisMoveThread(focusNode);
+                }
                 break;
             case Kinds.ENGINE:
                 startGameMoveThread();
@@ -1406,15 +1426,16 @@ public class GameStage extends Stage {
         movesTimeline = new Timeline(new KeyFrame(Duration.millis(MainUtils.MOVE_TIMELINE_PERIOD_MILLIS),
             ae -> {
                 try {
+                    if (player.engine != null
+                            && nextMoveThread != null
+                            && nextMoveThread.isAlive()) {
 
-                    if (player.engine != null) {
                         if (analysisStage != null
                                 && analysisStage.isShowing()) {
                             analysisStage.getMovesHBox().setCurrentMoveRecord(player.engine.getMoveRecord());
                         }
 
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1429,13 +1450,15 @@ public class GameStage extends Stage {
         pvTimeline = new Timeline(new KeyFrame(Duration.millis(MainUtils.PV_TIMELINE_PERIOD_MILLIS),
             ae -> {
                 try {
+                    if (player.engine != null
+                            && nextMoveThread != null
+                            && nextMoveThread.isAlive()) {
 
-                    if (player.engine != null) {
                         if (analysisStage != null
                                 && analysisStage.isShowing()) {
                             analysisStage.getSearchHBox().addPvRecord(player.engine.getPvRecord());
                         } else if (searchStage != null
-                                    && searchStage.isShowing()) {
+                                && searchStage.isShowing()) {
                             searchStage.getSearchHBox().addPvRecord(player.engine.getPvRecord());
                             if (player.engine.searchTimeOut()) {
                                 pvTimeline.stop();
@@ -1445,7 +1468,6 @@ public class GameStage extends Stage {
                         }
 
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1521,7 +1543,6 @@ public class GameStage extends Stage {
                     throws Exception {
 
                 System.out.println("player=" + player);
-
                 player.engine.searchBestMove(game, fromNode);
 
                 return null;

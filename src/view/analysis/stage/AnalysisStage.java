@@ -66,7 +66,7 @@ public class AnalysisStage extends Stage {
 //        initOwner(ownerStage);
 //        setResizable(false);
 //        initStyle(StageStyle.UNDECORATED);
-        setOnCloseRequest(we ->  we.consume() );
+        setOnCloseRequest( we ->  we.consume() );
 
         getIcons().add(ViewUtils.selectRandomIcon());
 

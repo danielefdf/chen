@@ -8,6 +8,8 @@ import engine.model.Engine;
 import engine.model.EvaluaShow;
 import engine.model.Node;
 import engine.view.evaluation.EEvaluationTabPane;
+import javafx.geometry.Orientation;
+import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +36,8 @@ public class EvaluationBorderPane extends BorderPane {
     private Node node;
 
     private ToolBar nodesToolBar = new ToolBar();
+        private ToolBarButton searchToolBarButton;
+        private Separator separator = new Separator();
         private ToolBarButton clearToolBarButton;
     private HBox controlsHBox = new HBox();
         private NodePane nodePane;
@@ -113,12 +117,34 @@ public class EvaluationBorderPane extends BorderPane {
     private void newNodesToolBar()
             throws Exception {
 
-        clearToolBarButton = new ToolBarButton("clear");
+        String searchTitle = "";
 
+        searchToolBarButton = new ToolBarButton(searchTitle);
+        searchToolBarButton.setText("start search");
+        searchToolBarButton.setOnAction(ae -> {
+            try {
+
+                evaluationBorderPaneListener.onSearchButtonPressed(node);
+
+                if (evaluationBorderPaneListener.getNextMoveThread() != null
+                        && evaluationBorderPaneListener.getNextMoveThread().isAlive()) {
+                    searchToolBarButton.setText("stop search");
+                } else {
+                    searchToolBarButton.setText("start search");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        clearToolBarButton = new ToolBarButton("clear");
         clearToolBarButton.setOnAction(ae -> {
             try {
 
                 nodesToolBar.getItems().clear();
+                nodesToolBar.getItems().add(searchToolBarButton);
+                nodesToolBar.getItems().add(separator);
                 nodesToolBar.getItems().add(clearToolBarButton);
 
                 addNodeToolBarButton(); // root node
@@ -129,6 +155,8 @@ public class EvaluationBorderPane extends BorderPane {
         });
 
         nodesToolBar.getItems().clear();
+        nodesToolBar.getItems().add(searchToolBarButton);
+        nodesToolBar.getItems().add(separator);
         nodesToolBar.getItems().add(clearToolBarButton);
 
         addNodeToolBarButton(); // root node
@@ -180,9 +208,9 @@ public class EvaluationBorderPane extends BorderPane {
 
     private void newNodePane() throws Exception {
 
-        nodePane = new NodePane(ownerStage, node, /*move*/null,
-                /*showAvailables*/false, /*showNodeDetails*/true, /*showNodeSetPane*/true,
-                /*boardTileEdge*/40);
+        nodePane = new NodePane(ownerStage, node, null,
+                false, true, true,
+                40);
 
         nodePane.setNodePaneListener(new NodePaneListener() {
 
@@ -232,7 +260,7 @@ public class EvaluationBorderPane extends BorderPane {
 
         removeEventFilter(KeyEvent.KEY_PRESSED, nodePane.getKeyEventHandler());
 
-        nodePane.resetNodePane(node, /*move*/null);
+        nodePane.resetNodePane(node, null);
 
         addEventFilter(KeyEvent.KEY_PRESSED, nodePane.getKeyEventHandler());
 
@@ -244,7 +272,7 @@ public class EvaluationBorderPane extends BorderPane {
 
         setNodeToolBarListeners(nodeTBB);
 
-        if (nodesToolBar.getItems().size() == 1) {
+        if (nodesToolBar.getItems().size() == 3) {
             nodesToolBar.getItems().add(nodeTBB);
         } else {
             int prevNTBIndex;
