@@ -56,7 +56,9 @@ Any engine configuration can be saved and retrieved, as well as any game or anal
 
 ![load game](https://github.com/danielefdf/chen/blob/master/docs/loadgame.gif)
 
+###
 
+This repository is licensed under MIT (c) 2020 GitHub, Inc.
 
 
 
