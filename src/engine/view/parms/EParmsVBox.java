@@ -83,6 +83,18 @@ public class EParmsVBox extends VBox {
         private ESpinnerParmHBox mobPieceNumeratrSPHB;
         private ESpinnerParmHBox mobTargetAttackDenomntrSPHB;
         private ESpinnerParmHBox mobTargetProtectnDenomntrSPHB;
+    private EParmTitledPane moveOrderingScoresPTP = new EParmTitledPane("move ordering");
+        private ESpinnerParmHBox morFunctionCoeffSPHB;
+        private ESpinnerParmHBox morTargetRoleCoeffSPHB;
+        private ESpinnerParmHBox morPieceRoleCoeffSPHB;
+        private ESpinnerParmHBox morPromRoleCoeffSPHB;
+        private ESpinnerParmHBox morOnCtrlledSquareScoreSPHB;
+        private ESpinnerParmHBox morOnKRing2ScoreSPHB;
+        private ESpinnerParmHBox morOnKRing1ScoreSPHB;
+        private ESpinnerParmHBox morOnCRing3ScoreSPHB;
+        private ESpinnerParmHBox morOnCRing2ScoreSPHB;
+        private ESpinnerParmHBox morOnCRing1ScoreSPHB;
+        private ESpinnerParmHBox morOnCentreScoreSPHB;
 
     private EParmsVBoxListener eParmsVBoxListener;
 
@@ -124,6 +136,7 @@ public class EParmsVBox extends VBox {
         newArrangementScoresTitledPane();
         newPawnStructureScoresTitledPane();
         newMobilityScoresTitledPane();
+        newMoveOrderingScoresPTP();
 
         setAlignment(Pos.TOP_LEFT);
 
@@ -147,6 +160,7 @@ public class EParmsVBox extends VBox {
         getChildren().add(arrangementScoresPTP);
         getChildren().add(pawnStructureScoresPTP);
         getChildren().add(mobilityScoresPTP);
+        getChildren().add(moveOrderingScoresPTP);
 
     }
 
@@ -728,6 +742,96 @@ public class EParmsVBox extends VBox {
 
     }
 
+    private void newMoveOrderingScoresPTP() {
+
+        morFunctionCoeffSPHB = new ESpinnerParmHBox("function coefficient", engine.morFunctionCoeff, null, () -> {
+            engine.morFunctionCoeff = morFunctionCoeffSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morTargetRoleCoeffSPHB = new ESpinnerParmHBox("target role coefficient", engine.morTargetRoleCoeff, null, () -> {
+            engine.morFunctionCoeff = morTargetRoleCoeffSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morPieceRoleCoeffSPHB = new ESpinnerParmHBox("piece role coefficient", engine.morPieceRoleCoeff, null, () -> {
+            engine.morFunctionCoeff = morPieceRoleCoeffSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morPromRoleCoeffSPHB = new ESpinnerParmHBox("promotion role coefficient", engine.morPromRoleCoeff, null, () -> {
+            engine.morPromRoleCoeff = morPromRoleCoeffSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morOnCtrlledSquareScoreSPHB = new ESpinnerParmHBox("on controlled square score", engine.morOnCtrlledSquareScore, null, () -> {
+            engine.morOnCtrlledSquareScore = morOnCtrlledSquareScoreSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morOnKRing2ScoreSPHB = new ESpinnerParmHBox("on king ring 2 score", engine.morOnKRing2Score, null, () -> {
+            engine.morOnKRing2Score = morOnKRing2ScoreSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morOnKRing1ScoreSPHB = new ESpinnerParmHBox("on king ring 1 score", engine.morOnKRing1Score, null, () -> {
+            engine.morOnKRing1Score = morOnKRing1ScoreSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morOnCRing3ScoreSPHB = new ESpinnerParmHBox("on center ring 3 score", engine.morOnCRing3Score, null, () -> {
+            engine.morOnCRing3Score = morOnCRing3ScoreSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morOnCRing2ScoreSPHB = new ESpinnerParmHBox("on center ring 2 score", engine.morOnCRing2Score, null, () -> {
+            engine.morOnCRing2Score = morOnCRing2ScoreSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morOnCRing1ScoreSPHB = new ESpinnerParmHBox("on center ring 1 score", engine.morOnCRing1Score, null, () -> {
+            engine.morOnCRing1Score = morOnCRing1ScoreSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        morOnCentreScoreSPHB = new ESpinnerParmHBox("on center score", engine.morOnCentreScore, null, () -> {
+            engine.morOnCentreScore = morOnCentreScoreSPHB.getMidgScoreSpinner().getValue();
+            checkOnEngineParmChanged();
+        }, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        moveOrderingScoresPTP.clear();
+
+        int r = -1;
+        moveOrderingScoresPTP.add(morFunctionCoeffSPHB,        0, ++r);
+        moveOrderingScoresPTP.add(morTargetRoleCoeffSPHB,      0, ++r);
+        moveOrderingScoresPTP.add(morPieceRoleCoeffSPHB,       0, ++r);
+        moveOrderingScoresPTP.add(morPromRoleCoeffSPHB,        0, ++r);
+        moveOrderingScoresPTP.add(morOnCtrlledSquareScoreSPHB, 0, ++r);
+        moveOrderingScoresPTP.add(morOnKRing2ScoreSPHB,        0, ++r);
+        moveOrderingScoresPTP.add(morOnKRing1ScoreSPHB,        0, ++r);
+        moveOrderingScoresPTP.add(morOnCRing3ScoreSPHB,        0, ++r);
+        moveOrderingScoresPTP.add(morOnCRing2ScoreSPHB,        0, ++r);
+        moveOrderingScoresPTP.add(morOnCRing1ScoreSPHB,        0, ++r);
+        moveOrderingScoresPTP.add(morOnCentreScoreSPHB,        0, ++r);
+
+    }
+
+    private void resetMoveOrderingScoresPTP() {
+
+        morFunctionCoeffSPHB.resetSpinnerParmHBox(        engine.morFunctionCoeff,        null);
+        morTargetRoleCoeffSPHB.resetSpinnerParmHBox(      engine.morTargetRoleCoeff,      null);
+        morPieceRoleCoeffSPHB.resetSpinnerParmHBox(       engine.morPieceRoleCoeff,       null);
+        morPromRoleCoeffSPHB.resetSpinnerParmHBox(        engine.morPromRoleCoeff,        null);
+        morOnCtrlledSquareScoreSPHB.resetSpinnerParmHBox( engine.morOnCtrlledSquareScore, null);
+        morOnKRing2ScoreSPHB.resetSpinnerParmHBox(        engine.morOnKRing2Score,        null);
+        morOnKRing1ScoreSPHB.resetSpinnerParmHBox(        engine.morOnKRing1Score,        null);
+        morOnCRing3ScoreSPHB.resetSpinnerParmHBox(        engine.morOnCRing3Score,        null);
+        morOnCRing2ScoreSPHB.resetSpinnerParmHBox(        engine.morOnCRing2Score,        null);
+        morOnCRing1ScoreSPHB.resetSpinnerParmHBox(        engine.morOnCRing1Score,        null);
+        morOnCentreScoreSPHB.resetSpinnerParmHBox(        engine.morOnCentreScore,        null);
+
+    }
+
     private void checkOnEngineParmChanged() {
         try {
 
@@ -754,6 +858,7 @@ public class EParmsVBox extends VBox {
         arrangementScoresPTP       .setExpanded(true);
         pawnStructureScoresPTP     .setExpanded(true);
         mobilityScoresPTP          .setExpanded(true);
+        moveOrderingScoresPTP      .setExpanded(true);
 
     }
 
@@ -771,6 +876,7 @@ public class EParmsVBox extends VBox {
         arrangementScoresPTP       .setExpanded(false);
         pawnStructureScoresPTP     .setExpanded(false);
         mobilityScoresPTP          .setExpanded(false);
+        moveOrderingScoresPTP      .setExpanded(false);
 
     }
 

@@ -6,7 +6,7 @@ import model.elements.Pieces;
 import model.elements.Squares;
 import model.elements.States;
 
-public abstract class EvaluaShow {
+public abstract class EngineShow {
 
     public static Engine engine;
     public static Node node;
@@ -1818,6 +1818,155 @@ public abstract class EvaluaShow {
                   + blackArrEndg
                   + blackKsaEndg;
 
+    }
+
+    /********************************************************************************************************************
+     *** move ordering
+     ********************************************************************************************************************/
+
+    public static String computeMoveScore(final byte sideColor, final Move move, final long fromSquareBb, final long toSquareBb)
+            throws Exception {
+
+        String s = "";
+
+        int value;
+
+        /*
+         * functions:
+         *         case 1: return "MOVEMENT"
+         *         case 2: return "SHORT_CG"
+         *         case 3: return "LONG_CG"
+         *         case 4: return "EN_PASSANT"
+         *         case 5: return "CAPTURE"
+         */
+
+        if (engine.principalVarSearch) {
+            s += "PVS active: first move is chosen by search, not by value.\n";
+            s += "\n";
+        }
+
+        value = engine.morFunctionCoeff * move.function;
+
+        s += "move_function_coefficient * function\n";
+        s += engine.morFunctionCoeff + " * " + move.function + "\n";
+        s += " = " + (engine.morFunctionCoeff * move.function)
+                + " -> value = " + value + "\n";
+        s += "\n";
+
+        if (move.targetPiece == null) {
+            if (move.fromSquare != null) {
+
+                /*
+                 * steps: promotions
+                 */
+
+                if (move.promotionPiece != null) {
+                    value += engine.morPromRoleCoeff * Math.abs(move.promotionPiece);
+                    s += "promotion_role_coefficient * promotion_role\n";
+                    s += " = " + engine.morPromRoleCoeff + " * " + Math.abs(move.promotionPiece) + "\n";
+                    s += " = " + engine.morPromRoleCoeff * Math.abs(move.promotionPiece)
+                            + " -> value = " + value + "\n";
+                    s += "\n";
+                }
+
+                /*
+                 * steps: killer/history heuristics
+                 */
+
+                if (engine.killerHeuristic) {
+                    s += "killer score can't be shown: too dinamic\n";
+                    s += "\n";
+                }
+
+                if (engine.historyHeuristic) {
+                    value += engine.historyRepsList[sideColor == Colors.WHITE ? 1 : 0][move.fromSquare][move.toSquare];
+                    s += "history score can't be shown: too dinamic\n";
+                    s += "\n";
+                }
+
+                /*
+                 * steps: from/to square attacked
+                 */
+
+                value += - engine.checkOnControlledScore(sideColor, fromSquareBb);
+                s += "from attacked square\n";
+                s += " = " + (- engine.checkOnControlledScore(sideColor, fromSquareBb))
+                        + " -> value = " + value + "\n";
+                s += "\n";
+
+                value += engine.checkOnControlledScore(sideColor, toSquareBb);
+                s += "to attacked square\n";
+                s += " = " + engine.checkOnControlledScore(sideColor, toSquareBb)
+                        + " -> value = " + value + "\n";
+                s += "\n";
+
+                /*
+                 * steps: from/to king rings
+                 */
+
+                value += - engine.checkOnKRingsScore(sideColor, fromSquareBb);
+                s += "from king rings\n";
+                s += " = " + (- engine.checkOnKRingsScore(sideColor, fromSquareBb))
+                        + " -> value = " + value + "\n";
+                s += "\n";
+
+                value += engine.checkOnKRingsScore(sideColor, toSquareBb);
+                s += "to king rings\n";
+                s += " = " + engine.checkOnKRingsScore(sideColor, toSquareBb)
+                        + " -> value = " + value + "\n";
+                s += "\n";
+
+                /*
+                 * steps: from/to centre / centre rings
+                 */
+
+                value += - engine.checkOnCRingsScore(sideColor, fromSquareBb);
+                s += "from center rings\n";
+                s += " = " + (- engine.checkOnCRingsScore(sideColor, fromSquareBb))
+                        + " -> value = " + value + "\n";
+                s += "\n";
+
+                value += engine.checkOnCRingsScore(sideColor, toSquareBb);
+                s += "to center rings\n";
+                s += " = " + engine.checkOnCRingsScore(sideColor, toSquareBb)
+                        + " -> value = " + value + "\n";
+                s += "\n";
+
+            }
+        } else {
+            /*
+             * captures/en-passant: MVV-LVA heuristic
+             */
+
+            value += engine.morTargetRoleCoeff  * Math.abs(move.targetPiece);
+            s += "MVV-LVA: target_role_coefficient * target_role\n";
+            s += " = " + (engine.morTargetRoleCoeff  * Math.abs(move.targetPiece))
+                    + " -> value = " + value + "\n";
+            s += "\n";
+
+            if (move.promotionPiece == null) {
+
+                value += -engine.morPieceRoleCoeff * Math.abs(move.piece);
+                s += "MVV-LVA: - target_role_coefficient * piece_role\n";
+                s += " = " + (-engine.morPieceRoleCoeff * Math.abs(move.piece))
+                        + " -> value = " + value + "\n";
+
+            } else {
+
+                /*
+                 * captures: promotions
+                 */
+
+                value += -engine.morPromRoleCoeff * Math.abs(move.promotionPiece);
+                s += "MVV-LVA: - target_role_coefficient * promotion_piece_role\n";
+                s += " = " + (-engine.morPromRoleCoeff * Math.abs(move.promotionPiece))
+                        + " -> value = " + value + "\n";
+
+            }
+            s += "\n";
+        }
+
+        return s;
     }
 
 }

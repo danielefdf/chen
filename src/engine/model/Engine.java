@@ -1812,7 +1812,7 @@ public class Engine implements Serializable {
         return value;
     }
 
-    private int checkOnCRingsScore(final byte sideColor, final long squareBb) {
+    public int checkOnCRingsScore(final byte sideColor, final long squareBb) {
 
         int cRingsScore = 0;
 
@@ -1827,7 +1827,7 @@ public class Engine implements Serializable {
         return cRingsScore;
     }
 
-    private int checkOnKRingsScore(final byte sideColor, final long squareBb)
+    public int checkOnKRingsScore(final byte sideColor, final long squareBb)
             throws Exception {
 
         int kRingsScore = 0;
@@ -1854,7 +1854,7 @@ public class Engine implements Serializable {
         return kRingsScore;
     }
 
-    private int checkOnControlledScore(final byte sideColor, final long squareBb)
+    public int checkOnControlledScore(final byte sideColor, final long squareBb)
             throws Exception {
 
         switch (sideColor) {

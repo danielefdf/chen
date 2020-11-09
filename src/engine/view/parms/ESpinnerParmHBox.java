@@ -72,6 +72,49 @@ public class ESpinnerParmHBox extends HBox {
 
     }
 
+    public ESpinnerParmHBox(String newParmString, Integer newMidgScore, Integer newEndgScore,
+                            EParmListener newEParmListener, int minValue, int maxValue) {
+
+        midgScore = newMidgScore;
+        endgScore = newEndgScore;
+
+        label = new Label(newParmString);
+        label.setMinWidth(EParmsVBox.LABEL_MIN_WIDTH);
+
+        eParmListener = newEParmListener;
+
+        if (midgScore != null) {
+            midgScoreSpinner = new Spinner<>(minValue, maxValue, midgScore);
+            midgScoreSpinner.valueProperty().addListener(
+                    (ObservableValue<? extends Integer> arg0, Integer arg1, Integer arg2) ->
+                            eParmListener.onValueChanged());
+        } else {
+            midgScoreSpinner = new Spinner<>();
+            midgScoreSpinner.setDisable(true);
+        }
+
+        midgScoreSpinner.setEditable(true);
+
+        if (endgScore != null) {
+            endgScoreSpinner = new Spinner<>(minValue, maxValue, endgScore);
+            endgScoreSpinner.valueProperty().addListener(
+                    (ObservableValue<? extends Integer> arg0, Integer arg1, Integer arg2) ->
+                            eParmListener.onValueChanged());
+        } else {
+            endgScoreSpinner = new Spinner<>();
+            endgScoreSpinner.setDisable(true);
+        }
+
+        endgScoreSpinner.setEditable(true);
+
+        setSpacing(5);
+
+        setAlignment(Pos.CENTER_LEFT);
+
+        setParmPaneSpinner();
+
+    }
+
     public void resetSpinnerParmHBox(Integer newMidgScore, Integer newEndgScore) {
 
         midgScore = newMidgScore;

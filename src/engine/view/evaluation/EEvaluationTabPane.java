@@ -1,7 +1,7 @@
 package engine.view.evaluation;
 
 import engine.model.Engine;
-import engine.model.EvaluaShow;
+import engine.model.EngineShow;
 import engine.model.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -130,7 +130,7 @@ public class EEvaluationTabPane extends TabPane {
         engine = newEngine;
         node = new Node(newNode);
 
-        EvaluaShow.evaluation(engine, node);
+        EngineShow.evaluation(engine, node);
 
         newEEvaluationTabPane();
 
@@ -167,7 +167,7 @@ public class EEvaluationTabPane extends TabPane {
         engine = newEngine;
         node = new Node(newNode);
 
-        EvaluaShow.evaluation(engine, node);
+        EngineShow.evaluation(engine, node);
 
         resetBoardBorderPane();
         resetScoresBorderPane();
@@ -311,13 +311,13 @@ public class EEvaluationTabPane extends TabPane {
     private void newBoardPawnStructureETP() {
 
         pawnsFsFSDDHB      = new FileSetDisplaySidesHBox("pawns fs",
-                EvaluaShow.whitePawnsFs, EvaluaShow.blackPawnsFs);
+                EngineShow.whitePawnsFs, EngineShow.blackPawnsFs);
 
         pawnIslandsCDSHB   = new CounterDisplaySidesHBox("pawn islands",
-                EvaluaShow.whitePawnIslandsCounter, EvaluaShow.blackPawnIslandsCounter);
+                EngineShow.whitePawnIslandsCounter, EngineShow.blackPawnIslandsCounter);
 
         distorsionBbBBDSHB = new BitBoardDisplaySidesHBox("distorsion",
-                EvaluaShow.whitePawnsFillDeltaBb, EvaluaShow.blackPawnsFillDeltaBb);
+                EngineShow.whitePawnsFillDeltaBb, EngineShow.blackPawnsFillDeltaBb);
 
         boardPawnStructureETP.clear();
 
@@ -330,11 +330,11 @@ public class EEvaluationTabPane extends TabPane {
 
     private void resetBoardPawnStructureETP() {
 
-        pawnsFsFSDDHB.reset(EvaluaShow.whitePawnsFs, EvaluaShow.blackPawnsFs);
+        pawnsFsFSDDHB.reset(EngineShow.whitePawnsFs, EngineShow.blackPawnsFs);
 
-        pawnIslandsCDSHB.reset(EvaluaShow.whitePawnIslandsCounter, EvaluaShow.blackPawnIslandsCounter);
+        pawnIslandsCDSHB.reset(EngineShow.whitePawnIslandsCounter, EngineShow.blackPawnIslandsCounter);
 
-        distorsionBbBBDSHB.reset(EvaluaShow.whitePawnsFillDeltaBb, EvaluaShow.blackPawnsFillDeltaBb);
+        distorsionBbBBDSHB.reset(EngineShow.whitePawnsFillDeltaBb, EngineShow.blackPawnsFillDeltaBb);
 
     }
 
@@ -344,22 +344,22 @@ public class EEvaluationTabPane extends TabPane {
                 node.whiteControlledBb, node.blackControlledBb);
 
         pawnsMovesBbBBDSHB = new BitBoardDisplaySidesHBox("pawns moves",
-                EvaluaShow.whitePawnsMovesBb,   EvaluaShow.blackPawnsMovesBb);
+                EngineShow.whitePawnsMovesBb,   EngineShow.blackPawnsMovesBb);
 
         knigthsMovesBbBBDSHB = new BitBoardDisplaySidesHBox("knights moves",
-                EvaluaShow.whiteKnightsMovesBb, EvaluaShow.blackKnightsMovesBb);
+                EngineShow.whiteKnightsMovesBb, EngineShow.blackKnightsMovesBb);
 
         bishopsMovesBbBBDSHB = new BitBoardDisplaySidesHBox("bishops moves",
-                EvaluaShow.whiteBishopsMovesBb, EvaluaShow.blackBishopsMovesBb);
+                EngineShow.whiteBishopsMovesBb, EngineShow.blackBishopsMovesBb);
 
         rooksMovesBbBBDSHB = new BitBoardDisplaySidesHBox("rooks moves",
-                EvaluaShow.whiteRooksMovesBb,   EvaluaShow.blackRooksMovesBb);
+                EngineShow.whiteRooksMovesBb,   EngineShow.blackRooksMovesBb);
 
         queensMovesBbBBDSHB = new BitBoardDisplaySidesHBox("queens moves",
-                EvaluaShow.whiteQueensMovesBb,  EvaluaShow.blackQueensMovesBb);
+                EngineShow.whiteQueensMovesBb,  EngineShow.blackQueensMovesBb);
 
         kingMovesBbBBDSHB = new BitBoardDisplaySidesHBox("king moves",
-                EvaluaShow.whiteKingMovesBb,    EvaluaShow.blackKingMovesBb);
+                EngineShow.whiteKingMovesBb,    EngineShow.blackKingMovesBb);
 
         boardMobilityETP.clear();
 
@@ -378,12 +378,12 @@ public class EEvaluationTabPane extends TabPane {
 
         ctrlledSquaresBbBBDSHB.reset( node.whiteControlledBb, node.blackControlledBb );
 
-        pawnsMovesBbBBDSHB.reset(     EvaluaShow.whitePawnsMovesBb,   EvaluaShow.blackPawnsMovesBb   );
-        knigthsMovesBbBBDSHB.reset(   EvaluaShow.whiteKnightsMovesBb, EvaluaShow.blackKnightsMovesBb );
-        bishopsMovesBbBBDSHB.reset(   EvaluaShow.whiteBishopsMovesBb, EvaluaShow.blackBishopsMovesBb );
-        rooksMovesBbBBDSHB.reset(     EvaluaShow.whiteRooksMovesBb,   EvaluaShow.blackRooksMovesBb   );
-        queensMovesBbBBDSHB.reset(    EvaluaShow.whiteQueensMovesBb,  EvaluaShow.blackQueensMovesBb  );
-        kingMovesBbBBDSHB.reset(      EvaluaShow.whiteKingMovesBb,    EvaluaShow.blackKingMovesBb    );
+        pawnsMovesBbBBDSHB.reset(     EngineShow.whitePawnsMovesBb,   EngineShow.blackPawnsMovesBb   );
+        knigthsMovesBbBBDSHB.reset(   EngineShow.whiteKnightsMovesBb, EngineShow.blackKnightsMovesBb );
+        bishopsMovesBbBBDSHB.reset(   EngineShow.whiteBishopsMovesBb, EngineShow.blackBishopsMovesBb );
+        rooksMovesBbBBDSHB.reset(     EngineShow.whiteRooksMovesBb,   EngineShow.blackRooksMovesBb   );
+        queensMovesBbBBDSHB.reset(    EngineShow.whiteQueensMovesBb,  EngineShow.blackQueensMovesBb  );
+        kingMovesBbBBDSHB.reset(      EngineShow.whiteKingMovesBb,    EngineShow.blackKingMovesBb    );
 
     }
 
@@ -555,43 +555,43 @@ public class EEvaluationTabPane extends TabPane {
     private void newMaterialScoresETP() {
 
         pawnsScoreSDSHB         = new ScoreDisplaySidesHBox("pawns",
-                null, EvaluaShow.whitePawnsMatMidg,     EvaluaShow.whitePawnsMatEndg,
-                null, EvaluaShow.blackPawnsMatMidg,     EvaluaShow.blackPawnsMatEndg);
+                null, EngineShow.whitePawnsMatMidg,     EngineShow.whitePawnsMatEndg,
+                null, EngineShow.blackPawnsMatMidg,     EngineShow.blackPawnsMatEndg);
         knightsScoreSDSHB       = new ScoreDisplaySidesHBox("knights",
-                null, EvaluaShow.whiteKnightsMatMidg,   EvaluaShow.whiteKnightsMatEndg,
-                null, EvaluaShow.blackKnightsMatMidg,   EvaluaShow.blackKnightsMatEndg);
+                null, EngineShow.whiteKnightsMatMidg,   EngineShow.whiteKnightsMatEndg,
+                null, EngineShow.blackKnightsMatMidg,   EngineShow.blackKnightsMatEndg);
         bishopsScoreSDSHB       = new ScoreDisplaySidesHBox("bishops",
-                null, EvaluaShow.whiteBishopsMatMidg,   EvaluaShow.whiteBishopsMatEndg,
-                null, EvaluaShow.blackBishopsMatMidg,   EvaluaShow.blackBishopsMatEndg);
+                null, EngineShow.whiteBishopsMatMidg,   EngineShow.whiteBishopsMatEndg,
+                null, EngineShow.blackBishopsMatMidg,   EngineShow.blackBishopsMatEndg);
         rooksScoreSDSHB         = new ScoreDisplaySidesHBox("rooks",
-                null, EvaluaShow.whiteRooksMatMidg,     EvaluaShow.whiteRooksMatEndg,
-                null, EvaluaShow.blackRooksMatMidg,     EvaluaShow.blackRooksMatEndg);
+                null, EngineShow.whiteRooksMatMidg,     EngineShow.whiteRooksMatEndg,
+                null, EngineShow.blackRooksMatMidg,     EngineShow.blackRooksMatEndg);
         queensScoreSDSHB        = new ScoreDisplaySidesHBox("queens",
-                null, EvaluaShow.whiteQueensMatMidg,    EvaluaShow.whiteQueensMatEndg,
-                null, EvaluaShow.blackQueensMatMidg,    EvaluaShow.blackQueensMatEndg);
+                null, EngineShow.whiteQueensMatMidg,    EngineShow.whiteQueensMatEndg,
+                null, EngineShow.blackQueensMatMidg,    EngineShow.blackQueensMatEndg);
         shortCgsScoreSDSHB      = new ScoreDisplaySidesHBox("short castling",
-                null, EvaluaShow.whiteShortCgMatMidg,   null,
-                null, EvaluaShow.blackShortCgMatMidg,   null);
+                null, EngineShow.whiteShortCgMatMidg,   null,
+                null, EngineShow.blackShortCgMatMidg,   null);
         longCgsScoreSDSHB       = new ScoreDisplaySidesHBox("long castling",
-                null, EvaluaShow.whiteLongCgMatMidg,    null,
-                null, EvaluaShow.blackLongCgMatMidg,    null);
+                null, EngineShow.whiteLongCgMatMidg,    null,
+                null, EngineShow.blackLongCgMatMidg,    null);
         lonelyKnightsScoreSDSHB = new ScoreDisplaySidesHBox("lonely knight",
-                null, EvaluaShow.whiteLonelyKnightMidg, EvaluaShow.whiteLonelyKnightEndg,
-                null, EvaluaShow.blackLonelyKnightMidg, EvaluaShow.blackLonelyKnightEndg);
+                null, EngineShow.whiteLonelyKnightMidg, EngineShow.whiteLonelyKnightEndg,
+                null, EngineShow.blackLonelyKnightMidg, EngineShow.blackLonelyKnightEndg);
         lonelyBishopsScoreSDSHB = new ScoreDisplaySidesHBox("lonely bishop",
-                null, EvaluaShow.whiteLonelyBishopMidg, EvaluaShow.whiteLonelyBishopEndg,
-                null, EvaluaShow.blackLonelyBishopMidg, EvaluaShow.blackLonelyBishopEndg);
+                null, EngineShow.whiteLonelyBishopMidg, EngineShow.whiteLonelyBishopEndg,
+                null, EngineShow.blackLonelyBishopMidg, EngineShow.blackLonelyBishopEndg);
         lonelyRooksScoreSDSHB   = new ScoreDisplaySidesHBox("lonely rook",
-                null, EvaluaShow.whiteLonelyRookMidg,   EvaluaShow.whiteLonelyRookEndg,
-                null, EvaluaShow.blackLonelyRookMidg,   EvaluaShow.blackLonelyRookEndg);
+                null, EngineShow.whiteLonelyRookMidg,   EngineShow.whiteLonelyRookEndg,
+                null, EngineShow.blackLonelyRookMidg,   EngineShow.blackLonelyRookEndg);
         sameFBishopsScoreSDSHB  = new ScoreDisplaySidesHBox("same field bishops",
-                null, EvaluaShow.whiteSameFBishopsMidg, EvaluaShow.whiteSameFBishopsEndg,
-                null, EvaluaShow.blackSameFBishopsMidg, EvaluaShow.blackSameFBishopsEndg);
+                null, EngineShow.whiteSameFBishopsMidg, EngineShow.whiteSameFBishopsEndg,
+                null, EngineShow.blackSameFBishopsMidg, EngineShow.blackSameFBishopsEndg);
         noPawnsScoreSDSHB       = new ScoreDisplaySidesHBox("no pawns",
-                null, EvaluaShow.whiteNoPawnsMidg,      EvaluaShow.whiteNoPawnsEndg,
-                null, EvaluaShow.blackNoPawnsMidg,      EvaluaShow.blackNoPawnsEndg);
+                null, EngineShow.whiteNoPawnsMidg,      EngineShow.whiteNoPawnsEndg,
+                null, EngineShow.blackNoPawnsMidg,      EngineShow.blackNoPawnsEndg);
         allPiecesMidgScoreSDHB  = new ScoreDisplayHBox("all pieces",
-                null, EvaluaShow.allPiecesMidgScore, null);
+                null, EngineShow.allPiecesMidgScore, null);
 
         materialScoresETP.clear();
 
@@ -614,45 +614,45 @@ public class EEvaluationTabPane extends TabPane {
 
     private void resetMaterialScoresETP() {
 
-        pawnsScoreSDSHB.reset(         null, EvaluaShow.whitePawnsMatMidg,     EvaluaShow.whitePawnsMatEndg,
-                                       null, EvaluaShow.blackPawnsMatMidg,     EvaluaShow.blackPawnsMatEndg);
-        knightsScoreSDSHB.reset(       null, EvaluaShow.whiteKnightsMatMidg,   EvaluaShow.whiteKnightsMatEndg,
-                                       null, EvaluaShow.blackKnightsMatMidg,   EvaluaShow.blackKnightsMatEndg);
-        bishopsScoreSDSHB.reset(       null, EvaluaShow.whiteBishopsMatMidg,   EvaluaShow.whiteBishopsMatEndg,
-                                       null, EvaluaShow.blackBishopsMatMidg,   EvaluaShow.blackBishopsMatEndg);
-        rooksScoreSDSHB.reset(         null, EvaluaShow.whiteRooksMatMidg,     EvaluaShow.whiteRooksMatEndg,
-                                       null, EvaluaShow.blackRooksMatMidg,     EvaluaShow.blackRooksMatEndg);
-        queensScoreSDSHB.reset(        null, EvaluaShow.whiteQueensMatMidg,    EvaluaShow.whiteQueensMatEndg,
-                                       null, EvaluaShow.blackQueensMatMidg,    EvaluaShow.blackQueensMatEndg);
-        shortCgsScoreSDSHB.reset(      null, EvaluaShow.whiteShortCgMatMidg,   null,
-                                       null, EvaluaShow.blackShortCgMatMidg,   null);
-        longCgsScoreSDSHB.reset(       null, EvaluaShow.whiteLongCgMatMidg,    null,
-                                       null, EvaluaShow.blackLongCgMatMidg,    null);
-        lonelyKnightsScoreSDSHB.reset( null, EvaluaShow.whiteLonelyKnightMidg, EvaluaShow.whiteLonelyKnightEndg,
-                                       null, EvaluaShow.blackLonelyKnightMidg, EvaluaShow.blackLonelyKnightEndg);
-        lonelyBishopsScoreSDSHB.reset( null, EvaluaShow.whiteLonelyBishopMidg, EvaluaShow.whiteLonelyBishopEndg,
-                                       null, EvaluaShow.blackLonelyBishopMidg, EvaluaShow.blackLonelyBishopEndg);
-        lonelyRooksScoreSDSHB.reset(   null, EvaluaShow.whiteLonelyRookMidg,   EvaluaShow.whiteLonelyRookEndg,
-                                       null, EvaluaShow.blackLonelyRookMidg,   EvaluaShow.blackLonelyRookEndg);
-        sameFBishopsScoreSDSHB.reset(  null, EvaluaShow.whiteSameFBishopsMidg, EvaluaShow.whiteSameFBishopsEndg,
-                                       null, EvaluaShow.blackSameFBishopsMidg, EvaluaShow.blackSameFBishopsEndg);
-        noPawnsScoreSDSHB.reset(       null, EvaluaShow.whiteNoPawnsMidg,      EvaluaShow.whiteNoPawnsEndg,
-                                       null, EvaluaShow.blackNoPawnsMidg,      EvaluaShow.blackNoPawnsEndg);
-        allPiecesMidgScoreSDHB.reset(  null, EvaluaShow.allPiecesMidgScore,    null);
+        pawnsScoreSDSHB.reset(         null, EngineShow.whitePawnsMatMidg,     EngineShow.whitePawnsMatEndg,
+                                       null, EngineShow.blackPawnsMatMidg,     EngineShow.blackPawnsMatEndg);
+        knightsScoreSDSHB.reset(       null, EngineShow.whiteKnightsMatMidg,   EngineShow.whiteKnightsMatEndg,
+                                       null, EngineShow.blackKnightsMatMidg,   EngineShow.blackKnightsMatEndg);
+        bishopsScoreSDSHB.reset(       null, EngineShow.whiteBishopsMatMidg,   EngineShow.whiteBishopsMatEndg,
+                                       null, EngineShow.blackBishopsMatMidg,   EngineShow.blackBishopsMatEndg);
+        rooksScoreSDSHB.reset(         null, EngineShow.whiteRooksMatMidg,     EngineShow.whiteRooksMatEndg,
+                                       null, EngineShow.blackRooksMatMidg,     EngineShow.blackRooksMatEndg);
+        queensScoreSDSHB.reset(        null, EngineShow.whiteQueensMatMidg,    EngineShow.whiteQueensMatEndg,
+                                       null, EngineShow.blackQueensMatMidg,    EngineShow.blackQueensMatEndg);
+        shortCgsScoreSDSHB.reset(      null, EngineShow.whiteShortCgMatMidg,   null,
+                                       null, EngineShow.blackShortCgMatMidg,   null);
+        longCgsScoreSDSHB.reset(       null, EngineShow.whiteLongCgMatMidg,    null,
+                                       null, EngineShow.blackLongCgMatMidg,    null);
+        lonelyKnightsScoreSDSHB.reset( null, EngineShow.whiteLonelyKnightMidg, EngineShow.whiteLonelyKnightEndg,
+                                       null, EngineShow.blackLonelyKnightMidg, EngineShow.blackLonelyKnightEndg);
+        lonelyBishopsScoreSDSHB.reset( null, EngineShow.whiteLonelyBishopMidg, EngineShow.whiteLonelyBishopEndg,
+                                       null, EngineShow.blackLonelyBishopMidg, EngineShow.blackLonelyBishopEndg);
+        lonelyRooksScoreSDSHB.reset(   null, EngineShow.whiteLonelyRookMidg,   EngineShow.whiteLonelyRookEndg,
+                                       null, EngineShow.blackLonelyRookMidg,   EngineShow.blackLonelyRookEndg);
+        sameFBishopsScoreSDSHB.reset(  null, EngineShow.whiteSameFBishopsMidg, EngineShow.whiteSameFBishopsEndg,
+                                       null, EngineShow.blackSameFBishopsMidg, EngineShow.blackSameFBishopsEndg);
+        noPawnsScoreSDSHB.reset(       null, EngineShow.whiteNoPawnsMidg,      EngineShow.whiteNoPawnsEndg,
+                                       null, EngineShow.blackNoPawnsMidg,      EngineShow.blackNoPawnsEndg);
+        allPiecesMidgScoreSDHB.reset(  null, EngineShow.allPiecesMidgScore,    null);
 
     }
 
     private void newPawnStructureScoresETP() {
 
         dispersionSDSHB        = new ScoreDisplaySidesHBox("dispersion",
-                null, EvaluaShow.whiteDispersionMidg, null,
-                null, EvaluaShow.blackDispersionMidg, null);
+                null, EngineShow.whiteDispersionMidg, null,
+                null, EngineShow.blackDispersionMidg, null);
         distorsionSDSHB        = new ScoreDisplaySidesHBox("distorsion",
-                null, EvaluaShow.whiteDistorsionMidg, null,
-                null, EvaluaShow.blackDistorsionMidg, null);
+                null, EngineShow.whiteDistorsionMidg, null,
+                null, EngineShow.blackDistorsionMidg, null);
         isolaniPawnsScoreSDSHB = new ScoreDisplaySidesHBox("isolani pawns",
-                null, EvaluaShow.whiteIsolaniPawnsMidg, EvaluaShow.whiteIsolaniPawnsEndg,
-                null, EvaluaShow.blackIsolaniPawnsMidg, EvaluaShow.blackIsolaniPawnsEndg);
+                null, EngineShow.whiteIsolaniPawnsMidg, EngineShow.whiteIsolaniPawnsEndg,
+                null, EngineShow.blackIsolaniPawnsMidg, EngineShow.blackIsolaniPawnsEndg);
 
         pawnStructureScoresETP.clear();
 
@@ -665,82 +665,82 @@ public class EEvaluationTabPane extends TabPane {
 
     private void resetPawnStructureScoresETP() {
 
-        dispersionSDSHB.reset(        null, EvaluaShow.whiteDispersionMidg, null,
-                                      null, EvaluaShow.blackDispersionMidg, null);
-        distorsionSDSHB.reset(        null, EvaluaShow.whiteDistorsionMidg, null,
-                                      null, EvaluaShow.blackDistorsionMidg, null);
-        isolaniPawnsScoreSDSHB.reset( null, EvaluaShow.whiteIsolaniPawnsMidg, EvaluaShow.whiteIsolaniPawnsEndg,
-                                      null, EvaluaShow.blackIsolaniPawnsMidg, EvaluaShow.blackIsolaniPawnsEndg);
+        dispersionSDSHB.reset(        null, EngineShow.whiteDispersionMidg, null,
+                                      null, EngineShow.blackDispersionMidg, null);
+        distorsionSDSHB.reset(        null, EngineShow.whiteDistorsionMidg, null,
+                                      null, EngineShow.blackDistorsionMidg, null);
+        isolaniPawnsScoreSDSHB.reset( null, EngineShow.whiteIsolaniPawnsMidg, EngineShow.whiteIsolaniPawnsEndg,
+                                      null, EngineShow.blackIsolaniPawnsMidg, EngineShow.blackIsolaniPawnsEndg);
 
     }
 
     private void newMobilityScoresETP() {
 
         pawnsMobilityMDSGP = new MobilityDisplaySidesGridPane("pawns",
-                EvaluaShow.whitePawnsStepsMobMidg,
-                EvaluaShow.whitePawnsDoubleStepsMobMidg,
-                EvaluaShow.whitePawnsCapturesMobMidg,
+                EngineShow.whitePawnsStepsMobMidg,
+                EngineShow.whitePawnsDoubleStepsMobMidg,
+                EngineShow.whitePawnsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackPawnsStepsMobMidg,
-                EvaluaShow.blackPawnsDoubleStepsMobMidg,
-                EvaluaShow.blackPawnsCapturesMobMidg,
+                EngineShow.blackPawnsStepsMobMidg,
+                EngineShow.blackPawnsDoubleStepsMobMidg,
+                EngineShow.blackPawnsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         knightsMobilityMDSGP = new MobilityDisplaySidesGridPane("knights",
-                EvaluaShow.whiteKnightsStepsMobMidg,
+                EngineShow.whiteKnightsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteKnightsCapturesMobMidg,
+                EngineShow.whiteKnightsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackKnightsStepsMobMidg,
+                EngineShow.blackKnightsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackKnightsCapturesMobMidg,
+                EngineShow.blackKnightsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         bishopsMobilityMDSGP = new MobilityDisplaySidesGridPane("bishops",
-                EvaluaShow.whiteBishopsStepsMobMidg,
+                EngineShow.whiteBishopsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteBishopsCapturesMobMidg,
+                EngineShow.whiteBishopsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackBishopsStepsMobMidg,
+                EngineShow.blackBishopsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackBishopsCapturesMobMidg,
+                EngineShow.blackBishopsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         rooksMobilityMDSGP = new MobilityDisplaySidesGridPane("rooks",
-                EvaluaShow.whiteRooksStepsMobMidg,
+                EngineShow.whiteRooksStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteRooksCapturesMobMidg,
+                EngineShow.whiteRooksCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackRooksStepsMobMidg,
+                EngineShow.blackRooksStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackRooksCapturesMobMidg,
+                EngineShow.blackRooksCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         queensMobilityMDSGP = new MobilityDisplaySidesGridPane("queens",
-                EvaluaShow.whiteQueensStepsMobMidg,
+                EngineShow.whiteQueensStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteQueensCapturesMobMidg,
+                EngineShow.whiteQueensCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackQueensStepsMobMidg,
+                EngineShow.blackQueensStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackQueensCapturesMobMidg,
+                EngineShow.blackQueensCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         kingsMobilityMDSGP = new MobilityDisplaySidesGridPane("kings",
-                EvaluaShow.whiteKingStepsMobMidg,
+                EngineShow.whiteKingStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteKingCapturesMobMidg,
+                EngineShow.whiteKingCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackKingStepsMobMidg,
+                EngineShow.blackKingStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackKingCapturesMobMidg,
+                EngineShow.blackKingCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         castlingsMobilityMDSGP = new MobilityDisplaySidesGridPane("castlings",
                 /*Steps*/null, /*DoubleSteps*/null, /*Captures*/null,
-                EvaluaShow.whiteShortCgMobMidg, EvaluaShow.whiteLongCgMobMidg,
+                EngineShow.whiteShortCgMobMidg, EngineShow.whiteLongCgMobMidg,
                 /*Steps*/null, /*DoubleSteps*/null, /*Captures*/null,
-                EvaluaShow.blackShortCgMobMidg, EvaluaShow.blackLongCgMobMidg);
+                EngineShow.blackShortCgMobMidg, EngineShow.blackLongCgMobMidg);
 
         mobilityScoresETP.clear();
 
@@ -758,117 +758,117 @@ public class EEvaluationTabPane extends TabPane {
     private void resetMobilityScoresETP() {
 
         pawnsMobilityMDSGP.reset(
-                EvaluaShow.whitePawnsStepsMobMidg,
-                EvaluaShow.whitePawnsDoubleStepsMobMidg,
-                EvaluaShow.whitePawnsCapturesMobMidg,
+                EngineShow.whitePawnsStepsMobMidg,
+                EngineShow.whitePawnsDoubleStepsMobMidg,
+                EngineShow.whitePawnsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackPawnsStepsMobMidg,
-                EvaluaShow.blackPawnsDoubleStepsMobMidg,
-                EvaluaShow.blackPawnsCapturesMobMidg,
+                EngineShow.blackPawnsStepsMobMidg,
+                EngineShow.blackPawnsDoubleStepsMobMidg,
+                EngineShow.blackPawnsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         knightsMobilityMDSGP.reset(
-                EvaluaShow.whiteKnightsStepsMobMidg,
+                EngineShow.whiteKnightsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteKnightsCapturesMobMidg,
+                EngineShow.whiteKnightsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackKnightsStepsMobMidg,
+                EngineShow.blackKnightsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackKnightsCapturesMobMidg,
+                EngineShow.blackKnightsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         bishopsMobilityMDSGP.reset(
-                EvaluaShow.whiteBishopsStepsMobMidg,
+                EngineShow.whiteBishopsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteBishopsCapturesMobMidg,
+                EngineShow.whiteBishopsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackBishopsStepsMobMidg,
+                EngineShow.blackBishopsStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackBishopsCapturesMobMidg,
+                EngineShow.blackBishopsCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         rooksMobilityMDSGP.reset(
-                EvaluaShow.whiteRooksStepsMobMidg,
+                EngineShow.whiteRooksStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteRooksCapturesMobMidg,
+                EngineShow.whiteRooksCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackRooksStepsMobMidg,
+                EngineShow.blackRooksStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackRooksCapturesMobMidg,
+                EngineShow.blackRooksCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         queensMobilityMDSGP.reset(
-                EvaluaShow.whiteQueensStepsMobMidg,
+                EngineShow.whiteQueensStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteQueensCapturesMobMidg,
+                EngineShow.whiteQueensCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackQueensStepsMobMidg,
+                EngineShow.blackQueensStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackQueensCapturesMobMidg,
+                EngineShow.blackQueensCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         kingsMobilityMDSGP.reset(
-                EvaluaShow.whiteKingStepsMobMidg,
+                EngineShow.whiteKingStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.whiteKingCapturesMobMidg,
+                EngineShow.whiteKingCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null,
-                EvaluaShow.blackKingStepsMobMidg,
+                EngineShow.blackKingStepsMobMidg,
                 /*DoubleSteps*/null,
-                EvaluaShow.blackKingCapturesMobMidg,
+                EngineShow.blackKingCapturesMobMidg,
                 /*ShortCg*/null, /*LongCg*/null);
 
         castlingsMobilityMDSGP.reset(
                 /*Steps*/null, /*DoubleSteps*/null, /*Captures*/null,
-                EvaluaShow.whiteShortCgMatMidg, EvaluaShow.whiteLongCgMobMidg,
+                EngineShow.whiteShortCgMatMidg, EngineShow.whiteLongCgMobMidg,
                 /*Steps*/null, /*DoubleSteps*/null, /*Captures*/null,
-                EvaluaShow.blackShortCgMobMidg, EvaluaShow.blackLongCgMobMidg);
+                EngineShow.blackShortCgMobMidg, EngineShow.blackLongCgMobMidg);
 
     }
 
     private void newArrangementScoresETP() {
 
         pawnsArrgtScoreSDSHB = new ScoreDisplaySidesHBox("pawns",
-                /*whiteOpeg*/null, EvaluaShow.whitePawnsArrMidg,         EvaluaShow.whitePawnsArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackPawnsArrMidg,         EvaluaShow.blackPawnsArrEndg);
+                /*whiteOpeg*/null, EngineShow.whitePawnsArrMidg,         EngineShow.whitePawnsArrEndg,
+                /*blackOpeg*/null, EngineShow.blackPawnsArrMidg,         EngineShow.blackPawnsArrEndg);
         knightsArrgtScoreSDSHB = new ScoreDisplaySidesHBox("knights",
-                /*whiteOpeg*/null, EvaluaShow.whiteKnightsArrMidg,       EvaluaShow.whiteKnightsArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackKnightsArrMidg,       EvaluaShow.blackKnightsArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteKnightsArrMidg,       EngineShow.whiteKnightsArrEndg,
+                /*blackOpeg*/null, EngineShow.blackKnightsArrMidg,       EngineShow.blackKnightsArrEndg);
         bishopsArrgtScoreSDSHB = new ScoreDisplaySidesHBox("bishops",
-                /*whiteOpeg*/null, EvaluaShow.whiteBishopsArrMidg,       EvaluaShow.whiteBishopsArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackBishopsArrMidg,       EvaluaShow.blackBishopsArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteBishopsArrMidg,       EngineShow.whiteBishopsArrEndg,
+                /*blackOpeg*/null, EngineShow.blackBishopsArrMidg,       EngineShow.blackBishopsArrEndg);
         rooksArrgtScoreSDSHB = new ScoreDisplaySidesHBox("rooks",
-                /*whiteOpeg*/null, EvaluaShow.whiteRooksArrMidg,         EvaluaShow.whiteRooksArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackRooksArrMidg,         EvaluaShow.blackRooksArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteRooksArrMidg,         EngineShow.whiteRooksArrEndg,
+                /*blackOpeg*/null, EngineShow.blackRooksArrMidg,         EngineShow.blackRooksArrEndg);
         queensArrgtScoreSDSHB = new ScoreDisplaySidesHBox("queens",
-                /*whiteOpeg*/null, EvaluaShow.whiteQueensArrMidg,        EvaluaShow.whiteQueensArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackQueensArrMidg,        EvaluaShow.blackQueensArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteQueensArrMidg,        EngineShow.whiteQueensArrEndg,
+                /*blackOpeg*/null, EngineShow.blackQueensArrMidg,        EngineShow.blackQueensArrEndg);
         kingsArrgtScoreSDSHB = new ScoreDisplaySidesHBox("kings",
-                /*whiteOpeg*/null, EvaluaShow.whiteKingArrMidg,          EvaluaShow.whiteKingArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackKingArrMidg,          EvaluaShow.blackKingArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteKingArrMidg,          EngineShow.whiteKingArrEndg,
+                /*blackOpeg*/null, EngineShow.blackKingArrMidg,          EngineShow.blackKingArrEndg);
         onCtrlledSquaresScoreSDSHB = new ScoreDisplaySidesHBox("on controlled squares",
-                /*whiteOpeg*/null, EvaluaShow.whiteOnCtrlledSquareMidg,  /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackOnCtrlledSquareMidg,  /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteOnCtrlledSquareMidg,  /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackOnCtrlledSquareMidg,  /*blackEndg*/null);
         centreControlMidgScoreSDSHB = new ScoreDisplaySidesHBox("center control",
-                /*whiteOpeg*/null, EvaluaShow.whiteCentreControlMidg,    /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackCentreControlMidg,    /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteCentreControlMidg,    /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackCentreControlMidg,    /*blackEndg*/null);
         cRingControlMidgScoreSDSHB = new ScoreDisplaySidesHBox("central ring control",
-                /*whiteOpeg*/null, EvaluaShow.whiteCRingControlMidg,     /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.whiteCRingControlMidg,     /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteCRingControlMidg,     /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.whiteCRingControlMidg,     /*blackEndg*/null);
         rookOnOpenFileScoreSDSHB = new ScoreDisplaySidesHBox("rooks on open file",
-                /*whiteOpeg*/null, EvaluaShow.whiteRookOnOpenFileMidg,   /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackRookOnOpenFileMidg,   /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteRookOnOpenFileMidg,   /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackRookOnOpenFileMidg,   /*blackEndg*/null);
         queenOnOpenFileScoreSDSHB = new ScoreDisplaySidesHBox("queens on open file",
-                /*whiteOpeg*/null, EvaluaShow.whiteQueenOnOpenFileMidg,  /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackQueenOnOpenFileMidg,  /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteQueenOnOpenFileMidg,  /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackQueenOnOpenFileMidg,  /*blackEndg*/null);
         rookOnSemiOFileScoreSDSHB = new ScoreDisplaySidesHBox("rooks on semi-open file",
-                /*whiteOpeg*/null, EvaluaShow.whiteRookOnSemiOFileMidg,  /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackRookOnSemiOFileMidg,  /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteRookOnSemiOFileMidg,  /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackRookOnSemiOFileMidg,  /*blackEndg*/null);
         queenOnSemiOFileScoreSDSHB = new ScoreDisplaySidesHBox("queens on semi-open file",
-                /*whiteOpeg*/null, EvaluaShow.whiteQueenOnSemiOFileMidg, /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackQueenOnSemiOFileMidg, /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteQueenOnSemiOFileMidg, /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackQueenOnSemiOFileMidg, /*blackEndg*/null);
         passedPawnsScoreSDSHB = new ScoreDisplaySidesHBox("passed pawns",
-                /*whiteOpeg*/null, EvaluaShow.whitePassedPawnsMidg,      EvaluaShow.whitePassedPawnsEndg,
-                /*blackOpeg*/null, EvaluaShow.blackPassedPawnsMidg,      EvaluaShow.blackPassedPawnsEndg);
+                /*whiteOpeg*/null, EngineShow.whitePassedPawnsMidg,      EngineShow.whitePassedPawnsEndg,
+                /*blackOpeg*/null, EngineShow.blackPassedPawnsMidg,      EngineShow.blackPassedPawnsEndg);
 
         arrangementScoresETP.clear();
 
@@ -893,64 +893,64 @@ public class EEvaluationTabPane extends TabPane {
     private void resetArrangementScoresETP() {
 
         pawnsArrgtScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whitePawnsArrMidg,         EvaluaShow.whitePawnsArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackPawnsArrMidg,         EvaluaShow.blackPawnsArrEndg);
+                /*whiteOpeg*/null, EngineShow.whitePawnsArrMidg,         EngineShow.whitePawnsArrEndg,
+                /*blackOpeg*/null, EngineShow.blackPawnsArrMidg,         EngineShow.blackPawnsArrEndg);
         knightsArrgtScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteKnightsArrMidg,       EvaluaShow.whiteKnightsArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackKnightsArrMidg,       EvaluaShow.blackKnightsArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteKnightsArrMidg,       EngineShow.whiteKnightsArrEndg,
+                /*blackOpeg*/null, EngineShow.blackKnightsArrMidg,       EngineShow.blackKnightsArrEndg);
         bishopsArrgtScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteBishopsArrMidg,       EvaluaShow.whiteBishopsArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackBishopsArrMidg,       EvaluaShow.blackBishopsArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteBishopsArrMidg,       EngineShow.whiteBishopsArrEndg,
+                /*blackOpeg*/null, EngineShow.blackBishopsArrMidg,       EngineShow.blackBishopsArrEndg);
         rooksArrgtScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteRooksArrMidg,         EvaluaShow.whiteRooksArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackRooksArrMidg,         EvaluaShow.blackRooksArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteRooksArrMidg,         EngineShow.whiteRooksArrEndg,
+                /*blackOpeg*/null, EngineShow.blackRooksArrMidg,         EngineShow.blackRooksArrEndg);
         queensArrgtScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteQueensArrMidg,        EvaluaShow.whiteQueensArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackQueensArrMidg,        EvaluaShow.blackQueensArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteQueensArrMidg,        EngineShow.whiteQueensArrEndg,
+                /*blackOpeg*/null, EngineShow.blackQueensArrMidg,        EngineShow.blackQueensArrEndg);
         kingsArrgtScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteKingArrMidg,          EvaluaShow.whiteKingArrEndg,
-                /*blackOpeg*/null, EvaluaShow.blackKingArrMidg,          EvaluaShow.blackKingArrEndg);
+                /*whiteOpeg*/null, EngineShow.whiteKingArrMidg,          EngineShow.whiteKingArrEndg,
+                /*blackOpeg*/null, EngineShow.blackKingArrMidg,          EngineShow.blackKingArrEndg);
         onCtrlledSquaresScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteOnCtrlledSquareMidg,  /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackOnCtrlledSquareMidg,  /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteOnCtrlledSquareMidg,  /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackOnCtrlledSquareMidg,  /*blackEndg*/null);
         centreControlMidgScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteCentreControlMidg,    /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackCentreControlMidg,    /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteCentreControlMidg,    /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackCentreControlMidg,    /*blackEndg*/null);
         cRingControlMidgScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteCRingControlMidg,     /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackCRingControlMidg,     /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteCRingControlMidg,     /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackCRingControlMidg,     /*blackEndg*/null);
         rookOnOpenFileScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteRookOnOpenFileMidg,   /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackRookOnOpenFileMidg,   /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteRookOnOpenFileMidg,   /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackRookOnOpenFileMidg,   /*blackEndg*/null);
         queenOnOpenFileScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteQueenOnOpenFileMidg,  /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackQueenOnOpenFileMidg,  /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteQueenOnOpenFileMidg,  /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackQueenOnOpenFileMidg,  /*blackEndg*/null);
         rookOnSemiOFileScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteRookOnSemiOFileMidg,  /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackRookOnSemiOFileMidg,  /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteRookOnSemiOFileMidg,  /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackRookOnSemiOFileMidg,  /*blackEndg*/null);
         queenOnSemiOFileScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteQueenOnSemiOFileMidg, /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackQueenOnSemiOFileMidg, /*blackEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteQueenOnSemiOFileMidg, /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackQueenOnSemiOFileMidg, /*blackEndg*/null);
         passedPawnsScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whitePassedPawnsMidg,      EvaluaShow.whitePassedPawnsEndg,
-                /*blackOpeg*/null, EvaluaShow.blackPassedPawnsMidg,      EvaluaShow.blackPassedPawnsEndg);
+                /*whiteOpeg*/null, EngineShow.whitePassedPawnsMidg,      EngineShow.whitePassedPawnsEndg,
+                /*blackOpeg*/null, EngineShow.blackPassedPawnsMidg,      EngineShow.blackPassedPawnsEndg);
 
     }
 
     private void newKingSafetyScoresETP() {
 
         shieldPawnLackScoreSDSHB = new ScoreDisplaySidesHBox("shield pawn holes",
-                /*whiteOpeg*/null, EvaluaShow.whiteShieldPawnsMidg,    /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackShieldPawnsMidg,    /*whiteEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteShieldPawnsMidg,    /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackShieldPawnsMidg,    /*whiteEndg*/null);
         kingAttackScoreSDSHB     = new ScoreDisplaySidesHBox("attacked king",
-                /*whiteOpeg*/null, EvaluaShow.whiteAttackedKingMidg,   EvaluaShow.whiteAttackedKingEndg,
-                /*blackOpeg*/null, EvaluaShow.blackAttackedKingMidg,   EvaluaShow.blackAttackedKingEndg);
+                /*whiteOpeg*/null, EngineShow.whiteAttackedKingMidg,   EngineShow.whiteAttackedKingEndg,
+                /*blackOpeg*/null, EngineShow.blackAttackedKingMidg,   EngineShow.blackAttackedKingEndg);
         kRing1AttackScoreSDSHB   = new ScoreDisplaySidesHBox("attacked king ring 1",
-                /*whiteOpeg*/null, EvaluaShow.whiteAttackedKRing1Midg, EvaluaShow.whiteAttackedKRing1Endg,
-                /*blackOpeg*/null, EvaluaShow.blackAttackedKRing1Midg, EvaluaShow.blackAttackedKRing1Endg);
+                /*whiteOpeg*/null, EngineShow.whiteAttackedKRing1Midg, EngineShow.whiteAttackedKRing1Endg,
+                /*blackOpeg*/null, EngineShow.blackAttackedKRing1Midg, EngineShow.blackAttackedKRing1Endg);
         kRing2AttackScoreSDSHB   = new ScoreDisplaySidesHBox("attacked king ring 2",
-                /*whiteOpeg*/null, EvaluaShow.whiteAttackedKRing2Midg, EvaluaShow.whiteAttackedKRing2Endg,
-                /*blackOpeg*/null, EvaluaShow.blackAttackedKRing2Midg, EvaluaShow.blackAttackedKRing2Endg);
+                /*whiteOpeg*/null, EngineShow.whiteAttackedKRing2Midg, EngineShow.whiteAttackedKRing2Endg,
+                /*blackOpeg*/null, EngineShow.blackAttackedKRing2Midg, EngineShow.blackAttackedKRing2Endg);
 
         kingSafetyScoresETP.clear();
 
@@ -965,17 +965,17 @@ public class EEvaluationTabPane extends TabPane {
     private void resetKingSafetyScoresETP() {
 
         shieldPawnLackScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteShieldPawnsMidg,    /*whiteEndg*/null,
-                /*blackOpeg*/null, EvaluaShow.blackShieldPawnsMidg,    /*whiteEndg*/null);
+                /*whiteOpeg*/null, EngineShow.whiteShieldPawnsMidg,    /*whiteEndg*/null,
+                /*blackOpeg*/null, EngineShow.blackShieldPawnsMidg,    /*whiteEndg*/null);
         kingAttackScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteAttackedKingMidg,   EvaluaShow.whiteAttackedKingEndg,
-                /*blackOpeg*/null, EvaluaShow.blackAttackedKingMidg,   EvaluaShow.blackAttackedKingEndg);
+                /*whiteOpeg*/null, EngineShow.whiteAttackedKingMidg,   EngineShow.whiteAttackedKingEndg,
+                /*blackOpeg*/null, EngineShow.blackAttackedKingMidg,   EngineShow.blackAttackedKingEndg);
         kRing1AttackScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteAttackedKRing1Midg, EvaluaShow.whiteAttackedKRing1Endg,
-                /*blackOpeg*/null, EvaluaShow.blackAttackedKRing1Midg, EvaluaShow.blackAttackedKRing1Endg);
+                /*whiteOpeg*/null, EngineShow.whiteAttackedKRing1Midg, EngineShow.whiteAttackedKRing1Endg,
+                /*blackOpeg*/null, EngineShow.blackAttackedKRing1Midg, EngineShow.blackAttackedKRing1Endg);
         kRing2AttackScoreSDSHB.reset(
-                /*whiteOpeg*/null, EvaluaShow.whiteAttackedKRing2Midg, EvaluaShow.whiteAttackedKRing2Endg,
-                /*blackOpeg*/null, EvaluaShow.blackAttackedKRing2Midg, EvaluaShow.blackAttackedKRing2Endg);
+                /*whiteOpeg*/null, EngineShow.whiteAttackedKRing2Midg, EngineShow.whiteAttackedKRing2Endg,
+                /*blackOpeg*/null, EngineShow.blackAttackedKRing2Midg, EngineShow.blackAttackedKRing2Endg);
 
     }
 

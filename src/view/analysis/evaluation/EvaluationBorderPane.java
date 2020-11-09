@@ -5,10 +5,10 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import engine.model.Engine;
-import engine.model.EvaluaShow;
+import engine.model.EngineShow;
 import engine.model.Node;
 import engine.view.evaluation.EEvaluationTabPane;
-import javafx.geometry.Orientation;
+import javafx.geometry.Insets;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCode;
@@ -37,7 +37,7 @@ public class EvaluationBorderPane extends BorderPane {
 
     private ToolBar nodesToolBar = new ToolBar();
         private ToolBarButton searchToolBarButton;
-        private Separator separator = new Separator();
+        private Separator separator;
         private ToolBarButton clearToolBarButton;
     private HBox controlsHBox = new HBox();
         private NodePane nodePane;
@@ -107,8 +107,6 @@ public class EvaluationBorderPane extends BorderPane {
         engine = newEngine;
         node = new Node(newNode);
 
-        EvaluaShow.evaluation(engine, node);
-
         addNodeToolBarButton();
         resetControlsHBox();
 
@@ -137,6 +135,9 @@ public class EvaluationBorderPane extends BorderPane {
                 e.printStackTrace();
             }
         });
+
+        separator = new Separator();
+        separator.setPadding(new Insets(0, 5, 0, 8));
 
         clearToolBarButton = new ToolBarButton("clear");
         clearToolBarButton.setOnAction(ae -> {
@@ -299,7 +300,7 @@ public class EvaluationBorderPane extends BorderPane {
             // [x] [|] [x] [1] [2]   [*0*] [*3*]
             // [x] [|] [x] [1] [*0*] [*2*] [*3*]
             prevNTBIndex = nodesToolBar.getItems().size() - 2;
-            for (int i = prevNTBIndex; i >= 2; --i) {
+            for (int i = prevNTBIndex; i >= 4; --i) {
                 prevNTB = copyNodeToolBarButton(
                         (NodeToolBarButton) nodesToolBar.getItems().get(i - 1));
                 nodesToolBar.getItems().set(i, prevNTB);
@@ -308,7 +309,7 @@ public class EvaluationBorderPane extends BorderPane {
             /* set 1st item */
 
             // [x] [|] [x] [*0*] [*1*] [*2*] [*3*]
-            nodesToolBar.getItems().set(1, nodeTBB);
+            nodesToolBar.getItems().set(3, nodeTBB);
         }
 
     }

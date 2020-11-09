@@ -869,7 +869,6 @@ public class GameStage extends Stage {
                     throws Exception {
 
                 stopCurrentMoveThread();
-                startAnalysisMoveThread(resetNode);
 
                 analysisStage.getMovesHBox().resetMovesHBox(resetNode, null, false);
                 analysisStage.getSearchHBox().resetSearchHBox(resetNode, null, false);

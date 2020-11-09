@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import engine.model.Move;
 import engine.model.MoveRecord;
 import engine.model.Node;
+import engine.view.evaluation.EMoveOrderingTabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -29,7 +30,7 @@ public class MovesHBox extends HBox {
     private boolean allowedToGame;
 
     private MovesTableView moveTableView;
-    private NodePane nodePane;
+    private EMoveOrderingTabPane eMoveOrderingTabPane;
 
 	public MovesTableView getMovesTableView() {
 		return moveTableView;
@@ -48,7 +49,7 @@ public class MovesHBox extends HBox {
         moveRecordsList = new LinkedList<>();
 
         newMoveTableView();
-        newNodePane();
+        newEMoveOrderingTabPane();
 
         setMovesHBox();
 
@@ -59,7 +60,7 @@ public class MovesHBox extends HBox {
         getChildren().clear();
 
         getChildren().add(moveTableView);
-        getChildren().add(nodePane);
+        getChildren().add(eMoveOrderingTabPane);
 
         HBox.setHgrow(moveTableView, Priority.ALWAYS);
 
@@ -76,8 +77,7 @@ public class MovesHBox extends HBox {
         moveRecordsList.clear();
 
         moveTableView.resetMovesTableView(moveRecordsList, allowedToGame);
-
-        nodePane.resetNodePane(node, move);
+        eMoveOrderingTabPane.reset(node, move, allowedToGame);
 
     }
 
@@ -99,7 +99,7 @@ public class MovesHBox extends HBox {
                     newNode = new Node(newNode, move);
                 }
 
-                nodePane.resetNodePane(newNode, move);
+                eMoveOrderingTabPane.reset(newNode, move, allowedToGame);
 
             }
 
@@ -119,14 +119,10 @@ public class MovesHBox extends HBox {
 
     }
 
-    private void newNodePane()
+    private void newEMoveOrderingTabPane()
             throws Exception {
 
-        nodePane = new NodePane(ownerStage, node, move,
-                /*showAvailables*/true, /*showNodeDetails*/true, /*showNodeSetPane*/true,
-                BOARD_TILE_EDGE);
-
-        nodePane.disableControls();
+        eMoveOrderingTabPane = new EMoveOrderingTabPane(ownerStage, node, move, true);
 
     }
 
