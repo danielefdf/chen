@@ -42,6 +42,8 @@ It is possible to set up a match:
 
 Or analyze a position:
 
+![new game](https://github.com/danielefdf/chen/blob/master/docs/newanalysis.gif)
+
 It is possible to configure every aspect of the engine:
 
 Any engine configuration can be saved, as well as any game or analysis session.
