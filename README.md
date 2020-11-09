@@ -38,6 +38,8 @@ Each of these aspects can be activated or not, and is configurable:
 
 It is possible to set up a match:
 
+![new game](newgame.gif)
+
 Or analyze a position:
 
 It is possible to configure every aspect of the engine:
