@@ -42,15 +42,15 @@ It is possible to set up a match:
 
 Or analyze a position:
 
-![new game](https://github.com/danielefdf/chen/blob/master/docs/newanalysis.gif)
+![new analysis](https://github.com/danielefdf/chen/blob/master/docs/newanalysis.gif)
 
 It is possible to configure every aspect of the engine:
 
-![new game](https://github.com/danielefdf/chen/blob/master/docs/confengine.gif)
+![configure engine](https://github.com/danielefdf/chen/blob/master/docs/confengine.gif)
 
 Any engine configuration can be saved, as well as any game or analysis session.
 
-![new game](https://github.com/danielefdf/chen/blob/master/docs/saveengine.gif)
+![save engine](https://github.com/danielefdf/chen/blob/master/docs/saveengine.gif)
 
 
 
