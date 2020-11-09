@@ -34,11 +34,15 @@ Each of these aspects can be activated or not, and is configurable:
     public boolean transpositionsMap;
 ```
 
+Currently the late move reduction is not active by default, because it didn't show improvements on search performance.
+
 ## The GUI
 
 It is possible to set up a match:
 
 ![new game](https://github.com/danielefdf/chen/blob/master/docs/newgame.gif)
+
+    Positions can be loaded with a FEN string.
 
 Or analyze a position:
 
