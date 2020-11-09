@@ -42,7 +42,7 @@ It is possible to set up a match:
 
 ![new game](https://github.com/danielefdf/chen/blob/master/docs/newgame.gif)
 
-    Positions can be loaded with a FEN string.
+ * Positions can also be loaded with a FEN string.
 
 Or analyze a position:
 
@@ -54,7 +54,7 @@ It is possible to configure every aspect of the engine:
 
 Any engine configuration can be saved and retrieved, as well as any game or analysis session.
 
-![save engine](https://github.com/danielefdf/chen/blob/master/docs/saveengine.gif)
+![load game](https://github.com/danielefdf/chen/blob/master/docs/loadgame.gif)
 
 
 
