@@ -48,7 +48,7 @@ It is possible to configure every aspect of the engine:
 
 ![configure engine](https://github.com/danielefdf/chen/blob/master/docs/confengine.gif)
 
-Any engine configuration can be saved, as well as any game or analysis session.
+Any engine configuration can be saved and retrieved, as well as any game or analysis session.
 
 ![save engine](https://github.com/danielefdf/chen/blob/master/docs/saveengine.gif)
 
