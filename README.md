@@ -34,7 +34,7 @@ Each of these aspects can be activated or not, and is configurable:
     public boolean transpositionsMap;
 ```
 
-Currently the late move reduction is not active by default, because it didn't show improvements on search performance.
+Currently the late move reduction is not active by default, because it didn't show improvements on search performance on this particular setting.
 
 ## The GUI
 
