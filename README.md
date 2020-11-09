@@ -38,7 +38,7 @@ Each of these aspects can be activated or not, and is configurable:
 
 It is possible to set up a match:
 
-![new game](newgame.gif)
+![new game](https://github.com/danielefdf/chen/blob/master/docs/newgame.gif)
 
 Or analyze a position:
 
