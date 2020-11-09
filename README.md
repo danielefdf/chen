@@ -1,5 +1,5 @@
 # chen
-A simple classical chess engine, with a full JavaFx graphical interface to play against the engine, or analyze a position and see how the engine is "thinking".
+A classical chess engine, with a full JavaFx graphical interface to play against the engine, or analyze a position and see how the engine is "thinking".
 
 The engine can also communicate via UCI protocol with different GUIs.
 
